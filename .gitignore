@@ -3,3 +3,4 @@ Thumbs.db
 .claude/
 node_modules/
 .vercel/
+.vercel
