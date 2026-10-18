@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     boyName: 'Nguyễn Thành Luân',
     girlName: 'Trương Ngọc Linh',
     coupleTitle: 'Nguyễn Thành Luân ❤️ Trương Ngọc Linh',
-    anniversaryDate: '2023-10-20', // Default anniversary date (YYYY-MM-DD)
+    anniversaryDate: '2026-05-17', // Default anniversary date (YYYY-MM-DD)
     heroSubtitle: 'Chúc bé iu Trương Ngọc Linh một ngày 20/10 thật hạnh phúc, rạng rỡ và luôn là cô công chúa nhỏ được anh Luân yêu thương, chiều chuộng nhất trên đời!',
     letterContent: `Gửi bé iu Trương Ngọc Linh của anh,\n\nNhân ngày Phụ Nữ Việt Nam 20/10, anh - chàng Dev của em muốn gửi đến em tất cả sự yêu thương, trân trọng và biết ơn sâu sắc nhất từ tận đáy lòng.\n\nNgười ta thường bảo dân lập trình viên khô khan, suốt ngày chỉ cặm cụi bên màn hình đen và những dòng code phức tạp. Nhưng từ ngày gặp được Linh, thế giới của anh bỗng trở nên ngập tràn màu sắc và những giai điệu dịu dàng nhất. Cảm ơn em vì đã đến bên anh, cùng anh sẻ chia những niềm vui nho nhỏ, những bữa cơm ấm áp và cho anh một mái ấm bình yên sau những giờ làm việc mệt mỏi.\n\nVới anh, nụ cười rạng rỡ và đôi mắt trong veo của Linh là điều quý giá nhất trên đời. Anh chúc cô gái nhỏ của anh ngày 20/10 thật nhiều niềm vui, luôn an yên, xinh đẹp và mãi là cô công chúa được anh Luân cưng chiều hết mực.\n\nDù ngoài kia cuộc sống có bao nhiêu thử thách hay sóng gió, hãy luôn nhớ rằng anh sẽ mãi là điểm tựa vững chãi, luôn yêu thương và nắm chặt tay em trên mọi nẻo đường.\n\nThương và yêu Trương Ngọc Linh nhiều hơn mỗi ngày!\nAnh chàng Dev của em - Nguyễn Thành Luân ❤️`
   };
@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // Migrate old default generic names to user's real names
         if (!parsed.boyName || parsed.boyName === 'Anh') parsed.boyName = 'Nguyễn Thành Luân';
         if (!parsed.girlName || parsed.girlName === 'Em Yêu') parsed.girlName = 'Trương Ngọc Linh';
+        if (!parsed.anniversaryDate || parsed.anniversaryDate === '2023-10-20') parsed.anniversaryDate = '2026-05-17';
         parsed.coupleTitle = `${parsed.boyName} ❤️ ${parsed.girlName}`;
         return { ...defaultCoupleData, ...parsed };
       }
@@ -129,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (quickEditDateBtn) {
     quickEditDateBtn.addEventListener('click', () => {
       const enteredDate = prompt(
-        'Nhập ngày hai bạn bắt đầu yêu nhau (Định dạng YYYY-MM-DD, ví dụ: 2023-10-20):',
+        'Nhập ngày hai bạn bắt đầu yêu nhau (Định dạng YYYY-MM-DD, ví dụ: 2026-05-17):',
         coupleData.anniversaryDate
       );
       if (enteredDate && /^\d{4}-\d{2}-\d{2}$/.test(enteredDate.trim())) {
@@ -140,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         fireLoveConfetti();
         showToast(`Đã lưu ngày yêu nhau: ${formatVietnameseDate(coupleData.anniversaryDate)} ❤️`);
       } else if (enteredDate) {
-        alert('Định dạng chưa đúng. Vui lòng nhập dạng YYYY-MM-DD (Ví dụ: 2023-10-20).');
+        alert('Định dạng chưa đúng. Vui lòng nhập dạng YYYY-MM-DD (Ví dụ: 2026-05-17).');
       }
     });
   }
@@ -478,10 +479,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
     {
       id: 'm-2',
-      date: 'Cột mốc chính thức',
+      date: '17/05/2026',
       title: 'Ngày Bé Linh Đồng Ý Bên Anh',
       desc: 'Lời tỏ tình vụng về của chàng Dev nhưng chứa trọn sự chân thành đã được em mỉm cười gật đầu. Đó là ngày hạnh phúc nhất và là khởi đầu cho câu chuyện tình yêu ngọt ngào của hai đứa.',
-      badge: '💖 Official Love',
+      badge: '💖 Cột Mốc Yêu Nhau',
       color: 'bg-pink-100 text-pink-700'
     },
     {
@@ -513,7 +514,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   function getMilestones() {
     try {
       const stored = localStorage.getItem('love_milestones_2010');
-      if (stored) return JSON.parse(stored);
+      if (stored) {
+        const milestones = JSON.parse(stored);
+        const m2 = milestones.find(m => m.id === 'm-2');
+        if (m2 && (m2.date === 'Cột mốc chính thức' || m2.date === '20/10/2023')) {
+          m2.date = '17/05/2026';
+          saveMilestones(milestones);
+        }
+        return milestones;
+      }
     } catch (e) {
       console.warn('Error reading milestones', e);
     }
@@ -1185,7 +1194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       e.preventDefault();
       const boy = document.getElementById('setting-boy-name').value.trim() || 'Nguyễn Thành Luân';
       const girl = document.getElementById('setting-girl-name').value.trim() || 'Trương Ngọc Linh';
-      const date = document.getElementById('setting-anniversary-date').value || '2023-10-20';
+      const date = document.getElementById('setting-anniversary-date').value || '2026-05-17';
       const subtitle = document.getElementById('setting-hero-subtitle').value.trim() || defaultCoupleData.heroSubtitle;
       const letter = document.getElementById('setting-letter-content').value.trim() || defaultCoupleData.letterContent;
 
