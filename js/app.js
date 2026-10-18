@@ -31,13 +31,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   /* ==========================================================================
      ADMIN / DEV MODE: CHẾ ĐỘ XEM AN TOÀN (GIFT MODE) VS QUẢN TRỊ DEV
      - Khách hoặc Bé Linh xem: Chế độ an toàn tuyệt đối, khóa mọi nút sửa/xóa.
-     - Chàng Dev (Luân) sửa: Mở khóa bằng URL ?admin=true hoặc nhấp 3 lần vào logo.
+     - Chàng Dev (Luân) sửa: Mở khóa tại trang admin.html hoặc nhập mật mã.
      ========================================================================== */
-  const ADMIN_PASSCODES = ['1705', '17052026', 'luan', '2010'];
+  const AUTH_HASHES = [
+    '38bc3d1c4787dd15fb6b16dccd548786cb773da29ffeb075602c76d2ca87f9fd',
+    '2f4f5994a9a0b1f923b80ac241141eaf1da87586299ee67626873353f5becdbc',
+    '22783f0252bcaaefacf263eacb5ec3603e66b4ce318cdcae0e3db9e624e3b014',
+    '7d12ba56e9f8b3dc64f77c87318c4f37bc12cfbf1a37573cdf3e4fa683f20155'
+  ];
+
+  async function hashPasscode(str) {
+    if (!window.crypto || !window.crypto.subtle) return str;
+    const msgBuffer = new TextEncoder().encode(str);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+  }
 
   function checkIsAdmin() {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('admin') || urlParams.has('edit') || urlParams.has('dev') || urlParams.get('key') === '1705') {
+    if (urlParams.has('admin') || urlParams.has('edit') || urlParams.has('dev')) {
       sessionStorage.setItem('love_is_admin', 'true');
       return true;
     }
@@ -73,10 +85,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  function unlockAdminMode() {
+  async function unlockAdminMode() {
     const code = prompt('🔑 Nhập mật mã của Chàng Dev (Luân) để mở quyền chỉnh sửa:');
     if (!code) return;
-    if (ADMIN_PASSCODES.includes(code.trim().toLowerCase())) {
+    const hashed = await hashPasscode(code.trim().toLowerCase());
+    if (AUTH_HASHES.includes(hashed)) {
       isAdminMode = true;
       sessionStorage.setItem('love_is_admin', 'true');
       updateAdminModeUI();

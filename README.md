@@ -12,7 +12,7 @@
 | Phân Hệ | Link Truy Cập | Mục Đích Sử Dụng |
 | :--- | :--- | :--- |
 | 🌸 **Trang Khách Xem (Index)** | 👉 **[https://loveu300.vercel.app](https://loveu300.vercel.app)** | Gửi link này cho **Bé Linh** hoặc bạn bè. Giao diện lãng mạn 100%, chế độ an toàn chỉ xem (Read-Only), không sợ bị chỉnh sửa hay phá hoại. |
-| 👑 **Studio Quản Trị (Admin)** | 👉 **[https://loveu300.vercel.app/admin.html](https://loveu300.vercel.app/admin.html)** | Dành riêng cho **Nguyễn Thành Luân** quản lý timeline, thông tin cặp đôi, lời chúc, album ảnh. *(Mật mã mở khóa: **`1705`**)* |
+| 👑 **Studio Quản Trị (Admin)** | 👉 **[https://loveu300.vercel.app/admin.html](https://loveu300.vercel.app/admin.html)** | Dành riêng cho **Nguyễn Thành Luân** quản lý timeline, thông tin cặp đôi, lời chúc, album ảnh. *(Bảo vệ bằng mật mã bảo mật riêng)* |
 | 📦 **Dữ Liệu Chuẩn (JSON)** | 👉 **[https://loveu300.vercel.app/data/love_data.json](https://loveu300.vercel.app/data/love_data.json)** | File cấu hình dữ liệu đồng bộ toàn cầu cho website. |
 
 ---
@@ -31,7 +31,7 @@
        │     NHÁNH KHÁCH (index.html)    │                                 │     NHÁNH ADMIN (admin.html)    │
        │   Dành riêng cho Bé Linh & Khách │                                 │  Studio Dành Cho Chàng Dev Luân │
        ├─────────────────────────────────┤                                 ├─────────────────────────────────┤
-       │ 🌸 Giao diện 100% lãng mạn      │                                 │ 🔒 Khóa màn hình Passcode: 1705 │
+       │ 🌸 Giao diện 100% lãng mạn      │                                 │ 🔒 Khóa màn hình Passcode bí mật│
        │ 🛡️ Chế độ chỉ xem (Read-Only)    │                                 │ ⏳ Tùy chỉnh Timeline (5 mốc)   │
        │ 🚫 Không có nút sửa/xóa gây vướng│                                 │ 💑 Đổi ngày yêu 17/05/2026, tên │
        │ 🔒 Không sợ người lạ phá hoại    │                                 │ 💾 Nút "Lưu & Đồng Bộ Sang Index"│
@@ -96,7 +96,7 @@ Gồm 5 cột mốc kỷ niệm ngọt ngào được nối bằng trục tim h�
 
 ### Cách 1: Chỉnh sửa trực tiếp qua Studio Admin
 1. Mở trang: [https://loveu300.vercel.app/admin.html](https://loveu300.vercel.app/admin.html)
-2. Nhập mật mã: `1705`
+2. Nhập mật mã bảo mật của Luân
 3. Tùy chỉnh các mốc thời gian, lời chúc, câu chữ theo ý muốn.
 4. Bấm nút **"💾 Lưu & Đồng Bộ Sang Index"** -> Trang `index.html` lập tức hiển thị nội dung mới!
 
