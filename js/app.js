@@ -29,6 +29,108 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   /* ==========================================================================
+     ADMIN / DEV MODE: CHẾ ĐỘ XEM AN TOÀN (GIFT MODE) VS QUẢN TRỊ DEV
+     - Khách hoặc Bé Linh xem: Chế độ an toàn tuyệt đối, khóa mọi nút sửa/xóa.
+     - Chàng Dev (Luân) sửa: Mở khóa bằng URL ?admin=true hoặc nhấp 3 lần vào logo.
+     ========================================================================== */
+  const ADMIN_PASSCODES = ['1705', '17052026', 'luan', '2010'];
+
+  function checkIsAdmin() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('admin') || urlParams.has('edit') || urlParams.has('dev') || urlParams.get('key') === '1705') {
+      sessionStorage.setItem('love_is_admin', 'true');
+      return true;
+    }
+    return sessionStorage.getItem('love_is_admin') === 'true';
+  }
+
+  let isAdminMode = checkIsAdmin();
+
+  function updateAdminModeUI() {
+    const adminElements = document.querySelectorAll('.admin-only');
+    const badge = document.getElementById('admin-badge-indicator');
+
+    adminElements.forEach((el) => {
+      if (isAdminMode) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    if (badge) {
+      if (isAdminMode) {
+        badge.classList.remove('hidden');
+        badge.classList.add('flex');
+      } else {
+        badge.classList.add('hidden');
+        badge.classList.remove('flex');
+      }
+    }
+
+    if (typeof renderPhotos === 'function') {
+      renderPhotos();
+    }
+  }
+
+  function unlockAdminMode() {
+    const code = prompt('🔑 Nhập mật mã của Chàng Dev (Luân) để mở quyền chỉnh sửa:');
+    if (!code) return;
+    if (ADMIN_PASSCODES.includes(code.trim().toLowerCase())) {
+      isAdminMode = true;
+      sessionStorage.setItem('love_is_admin', 'true');
+      updateAdminModeUI();
+      if (typeof fireLoveConfetti === 'function') fireLoveConfetti();
+      showToast('🎉 Đã mở khóa quyền chỉnh sửa của Chàng Dev! 👑', '🔓');
+    } else {
+      showToast('❌ Mật mã chưa đúng! Web tiếp tục ở chế độ xem an toàn. 🛡️', '🔒');
+    }
+  }
+
+  function lockAdminMode() {
+    isAdminMode = false;
+    sessionStorage.removeItem('love_is_admin');
+    const url = new URL(window.location);
+    url.searchParams.delete('admin');
+    url.searchParams.delete('edit');
+    url.searchParams.delete('dev');
+    url.searchParams.delete('key');
+    window.history.replaceState({}, '', url.pathname + (url.search || ''));
+    updateAdminModeUI();
+    showToast('🔒 Đã khóa lại! Web ở chế độ xem an toàn dành cho Bé Linh. 💖', '🛡️');
+  }
+
+  // Secret Dev Trigger: Nhấp 3 lần vào logo thương hiệu để mở/khóa quyền Admin
+  const brandLogo = document.querySelector('a[href="#hero"]');
+  let logoClickCount = 0;
+  let logoClickTimer = null;
+  if (brandLogo) {
+    brandLogo.addEventListener('click', (e) => {
+      logoClickCount++;
+      clearTimeout(logoClickTimer);
+      if (logoClickCount >= 3) {
+        e.preventDefault();
+        logoClickCount = 0;
+        if (!isAdminMode) {
+          unlockAdminMode();
+        } else {
+          lockAdminMode();
+        }
+      } else {
+        logoClickTimer = setTimeout(() => {
+          logoClickCount = 0;
+        }, 1200);
+      }
+    });
+  }
+
+  // Nút Khóa lại trên floating badge
+  const exitAdminBtn = document.getElementById('exit-admin-btn');
+  if (exitAdminBtn) {
+    exitAdminBtn.addEventListener('click', lockAdminMode);
+  }
+
+  /* ==========================================================================
      1. COUPLE PROFILE & CONFIGURATION (Stored in LocalStorage)
      ========================================================================== */
   const defaultCoupleData = {
@@ -129,6 +231,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const quickEditDateBtn = document.getElementById('quick-edit-date-btn');
   if (quickEditDateBtn) {
     quickEditDateBtn.addEventListener('click', () => {
+      if (!isAdminMode) {
+        unlockAdminMode();
+        return;
+      }
       const enteredDate = prompt(
         'Nhập ngày hai bạn bắt đầu yêu nhau (Định dạng YYYY-MM-DD, ví dụ: 2026-05-17):',
         coupleData.anniversaryDate
@@ -579,6 +685,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (addMilestoneForm) {
     addMilestoneForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!isAdminMode) {
+        showToast('Chế độ xem an toàn: Chỉ Chàng Dev mới có quyền thêm cột mốc! 🛡️', '🔒');
+        return;
+      }
       const titleInput = document.getElementById('milestone-title');
       const dateInput = document.getElementById('milestone-date');
       const descInput = document.getElementById('milestone-desc');
@@ -815,10 +925,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
           </div>
           
-          <!-- Delete button on hover -->
+          ${isAdminMode ? `
+          <!-- Delete button on hover (Admin only) -->
           <button class="polaroid-delete-btn absolute top-3 right-3 w-7 h-7 rounded-full bg-white/95 hover:bg-rose-100 text-rose-600 shadow-md flex items-center justify-center text-xs transition-transform hover:scale-110 z-20" title="Xóa ảnh này" onclick="window.deletePhoto('${photo.id}', event)">
             🗑️
-          </button>
+          </button>` : ''}
 
           <div class="text-center px-1" onclick="openLightbox('${photo.url}', '${escapeHtml(photo.caption)}')">
             <p class="font-handwriting text-gray-800 text-lg leading-tight mb-1">"${escapeHtml(photo.caption)}"</p>
@@ -835,6 +946,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Delete Photo Global Handler
   window.deletePhoto = async function (id, event) {
     if (event) event.stopPropagation();
+    if (!isAdminMode) {
+      showToast('Chế độ xem an toàn: Chỉ Chàng Dev mới có quyền xóa ảnh! 🛡️', '🔒');
+      return;
+    }
     if (!confirm('Bạn có chắc muốn xóa ảnh này khỏi album kỷ niệm?')) return;
 
     await PhotoDB.delete(id);
@@ -953,6 +1068,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (addPhotoForm) {
     addPhotoForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (!isAdminMode) {
+        showToast('Chế độ xem an toàn: Chỉ Chàng Dev mới có quyền thêm ảnh! 🛡️', '🔒');
+        return;
+      }
       const caption = document.getElementById('modal-photo-caption').value.trim() || 'Khoảnh khắc đáng nhớ';
       const date = document.getElementById('modal-photo-date').value.trim() || 'Kỷ niệm yêu';
 
@@ -1011,6 +1130,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (editLetterBtn) {
     editLetterBtn.addEventListener('click', () => {
+      if (!isAdminMode) {
+        unlockAdminMode();
+        return;
+      }
       const settingsModal = document.getElementById('settings-modal');
       if (settingsModal) {
         settingsModal.classList.remove('hidden');
@@ -1112,6 +1235,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (addLoveNoteForm) {
     addLoveNoteForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!isAdminMode) {
+        showToast('Chế độ xem an toàn: Chỉ Chàng Dev mới có quyền lưu lời nhắn mới! 🛡️', '🔒');
+        return;
+      }
       const textInput = document.getElementById('custom-love-note-text');
       const val = textInput.value.trim();
       if (!val) return;
@@ -1169,6 +1296,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (openSettingsBtn && settingsModal) {
     openSettingsBtn.addEventListener('click', () => {
+      if (!isAdminMode) {
+        unlockAdminMode();
+        return;
+      }
       applyCoupleData();
       settingsModal.classList.remove('hidden');
       settingsModal.classList.add('flex');
@@ -1192,6 +1323,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (settingsForm) {
     settingsForm.addEventListener('submit', (e) => {
       e.preventDefault();
+      if (!isAdminMode) {
+        showToast('Chế độ xem an toàn: Chỉ Chàng Dev mới có quyền cập nhật cài đặt! 🛡️', '🔒');
+        return;
+      }
       const boy = document.getElementById('setting-boy-name').value.trim() || 'Nguyễn Thành Luân';
       const girl = document.getElementById('setting-girl-name').value.trim() || 'Trương Ngọc Linh';
       const date = document.getElementById('setting-anniversary-date').value || '2026-05-17';
@@ -1221,8 +1356,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Initial apply
+  // Initial apply & Admin UI state
   applyCoupleData();
+  updateAdminModeUI();
 
   function escapeHtml(str) {
     if (!str) return '';
