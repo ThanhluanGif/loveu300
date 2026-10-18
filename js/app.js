@@ -1421,6 +1421,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   applyCoupleData();
   updateAdminModeUI();
 
+  /* ==========================================================================
+     SYNC AUTHORITATIVE DATA FROM data/love_data.json
+     ========================================================================== */
+  async function syncExternalData() {
+    try {
+      const res = await fetch('data/love_data.json?t=' + Date.now());
+      if (!res.ok) return;
+      const json = await res.json();
+
+      // Only override if client is not in local admin editing mode
+      const isLocalAdmin = sessionStorage.getItem('love_admin_authenticated') === 'true';
+      if (!isLocalAdmin) {
+        if (json.coupleData) {
+          localStorage.setItem('couple_data_2010', JSON.stringify(json.coupleData));
+          applyCoupleData();
+          updateLoveCounter();
+        }
+        if (json.milestones && Array.isArray(json.milestones) && json.milestones.length > 0) {
+          localStorage.setItem('love_milestones_2010', JSON.stringify(json.milestones));
+          renderTimeline();
+        }
+        if (json.photos && Array.isArray(json.photos) && json.photos.length > 0) {
+          localStorage.setItem('love_photos_2010', JSON.stringify(json.photos));
+          if (typeof renderGallery === 'function') renderGallery();
+        }
+      }
+    } catch (e) {
+      // offline or fetch not supported, fallback to existing stored/default data
+    }
+  }
+
+  syncExternalData();
+
   function escapeHtml(str) {
     if (!str) return '';
     return str

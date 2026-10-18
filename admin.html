@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | Quản Trị Trang Web Tình Yêu 👑</title>
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Charm:wght@400;700&family=Dancing+Script:wght@500;600;700&family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Playfair Display"', 'serif'],
+            mono: ['"Fira Code"', 'monospace'],
+          },
+          colors: {
+            rosepink: {
+              50: '#fff1f4',
+              100: '#ffe4e8',
+              200: '#fecdd6',
+              300: '#fda4b8',
+              400: '#fb718f',
+              500: '#f43f68',
+              600: '#e11d4d',
+              700: '#be123c',
+              800: '#9f1237',
+              900: '#881333',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons & Canvas Confetti -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #fff1f2 0%, #fff7ed 50%, #fdf2f8 100%);
+      min-height: 100vh;
+      color: #334155;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .btn-rose-glow {
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 50%, #be123c 100%);
+      box-shadow: 0 4px 15px -2px rgba(244, 63, 94, 0.35);
+      transition: all 0.25s ease;
+    }
+    .btn-rose-glow:hover {
+      box-shadow: 0 6px 20px 0 rgba(244, 63, 94, 0.5);
+      transform: translateY(-1px);
+    }
+    .btn-emerald-glow {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      box-shadow: 0 4px 15px -2px rgba(16, 185, 129, 0.35);
+      transition: all 0.25s ease;
+    }
+    .btn-emerald-glow:hover {
+      box-shadow: 0 6px 20px 0 rgba(16, 185, 129, 0.5);
+      transform: translateY(-1px);
+    }
+    .tab-btn.active {
+      background: #ffffff;
+      color: #e11d48;
+      box-shadow: 0 4px 12px rgba(244, 63, 94, 0.15);
+      font-weight: 700;
+      border-color: #fda4af;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-800">
+
+  <!-- ========================================================================= -->
+  <!-- 1. MÀN HÌNH ĐĂNG NHẬP BẢO MẬT (PASSCODE SCREEN)                           -->
+  <!-- ========================================================================= -->
+  <div id="login-screen" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gradient-to-br from-rose-100/90 via-pink-50/90 to-amber-50/90 backdrop-blur-md">
+    <div class="glass-card max-w-md w-full p-8 rounded-3xl border border-rose-200/90 shadow-2xl text-center relative overflow-hidden">
+      <!-- Glow ambient -->
+      <div class="absolute -top-16 -left-16 w-36 h-36 bg-rose-300/40 rounded-full blur-2xl"></div>
+      <div class="absolute -bottom-16 -right-16 w-36 h-36 bg-amber-300/40 rounded-full blur-2xl"></div>
+
+      <div class="relative z-10">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-500 text-white flex items-center justify-center text-3xl shadow-lg shadow-rose-500/30">
+          👑
+        </div>
+        <h2 class="text-2xl font-bold font-serif text-gray-900 mb-1">
+          Chàng Dev Quản Trị
+        </h2>
+        <p class="text-xs text-gray-500 mb-6">
+          Khu vực chỉnh sửa nội dung riêng tư cho Nguyễn Thành Luân.<br>Trang chính (index.html) sẽ chỉ để người yêu & khách xem.
+        </p>
+
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-semibold text-gray-600 mb-2 text-left">Nhập Mật Mã Của Luân (Passcode):</label>
+            <div class="relative">
+              <input type="password" id="admin-passcode" placeholder="Mật mã: 1705..." required autofocus class="w-full px-4 py-3 rounded-xl border border-rose-200 bg-white/90 text-sm font-mono text-center tracking-widest focus:outline-none focus:ring-2 focus:ring-rose-400 focus:border-rose-400 shadow-inner">
+              <button type="button" id="toggle-pwd-btn" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 text-xs">👁️</button>
+            </div>
+            <p class="text-[11px] text-gray-400 mt-2 text-left italic">
+              💡 Gợi ý: Ngày kỷ niệm tình yêu <strong>1705</strong> hoặc tên <strong>luan</strong>
+            </p>
+          </div>
+
+          <div id="login-error-msg" class="hidden text-xs text-rose-600 font-semibold bg-rose-50 p-2.5 rounded-xl border border-rose-200">
+            ❌ Mật mã không chính xác, vui lòng thử lại!
+          </div>
+
+          <button type="submit" class="w-full py-3 rounded-xl btn-rose-glow text-white font-bold text-sm shadow-md flex items-center justify-center gap-2">
+            <span>Mở Khóa Quản Trị</span>
+            <span>🔓</span>
+          </button>
+
+          <div class="pt-2">
+            <a href="index.html" class="text-xs text-gray-500 hover:text-rose-600 font-semibold transition-colors flex items-center justify-center gap-1">
+              <span>← Quay lại xem trang khách (index.html)</span>
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. DASHBOARD QUẢN TRỊ CHÍNH (ADMIN PANEL)                                 -->
+  <!-- ========================================================================= -->
+  <div id="admin-dashboard" class="hidden min-h-screen pb-20">
+    
+    <!-- Top Sticky Bar -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-rose-100 shadow-xs">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
+        
+        <!-- Brand Info -->
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 text-white flex items-center justify-center text-xl shadow-md">
+            👑
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="font-bold text-gray-900 text-sm sm:text-base">Love Timeline Studio</h1>
+              <span class="px-2 py-0.5 rounded-full bg-rose-100 text-rose-700 text-[10px] font-bold uppercase tracking-wider">Dev Admin</span>
+            </div>
+            <p class="text-xs text-gray-500">Chỉnh sửa nội dung & đồng bộ sang trang khách (index.html)</p>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <a href="index.html" target="_blank" class="px-3.5 py-2 rounded-xl bg-white hover:bg-rose-50 text-gray-700 hover:text-rose-600 text-xs font-semibold border border-rose-200 transition-colors flex items-center gap-1.5 shadow-2xs" title="Mở trang index.html trong tab mới">
+            <span>👁️</span>
+            <span class="hidden sm:inline">Xem Trang Khách</span>
+          </a>
+
+          <button id="save-all-btn" class="px-4 py-2 rounded-xl btn-emerald-glow text-white text-xs font-bold flex items-center gap-1.5 shadow" title="Lưu dữ liệu vào trình duyệt">
+            <span>💾</span>
+            <span>Lưu & Đồng Bộ Sang Index</span>
+          </button>
+
+          <button id="export-json-btn" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 text-xs font-bold border border-rose-200 flex items-center gap-1.5 transition-colors" title="Tải file love_data.json để lưu vĩnh viễn trên GitHub">
+            <span>📥</span>
+            <span class="hidden sm:inline">Xuất File JSON</span>
+          </button>
+
+          <button id="logout-btn" class="p-2 rounded-xl bg-gray-100 hover:bg-rose-100 text-gray-500 hover:text-rose-600 text-xs transition-colors" title="Đăng xuất khỏi Admin">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
+      
+      <!-- Notification Banner -->
+      <div class="mb-8 p-4 rounded-2xl bg-gradient-to-r from-rose-500/10 via-pink-500/10 to-amber-500/10 border border-rose-200/80 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">💡</span>
+          <div class="text-xs text-gray-700 leading-relaxed">
+            <strong>Mô hình 2 trang riêng biệt:</strong> 
+            Trang <strong>index.html</strong> là trang chỉ đọc (View-Only) dành riêng cho bé Linh và khách xem, không có các nút sửa gây vướng. 
+            Mọi chỉnh sửa của Luân tại trang <strong>admin.html</strong> này sau khi bấm <strong>"Lưu & Đồng Bộ Sang Index"</strong> sẽ lập tức hiển thị trên trang chính!
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar border-b border-rose-200">
+        <button class="tab-btn active px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-transparent whitespace-nowrap flex items-center gap-2" data-tab="tab-timeline">
+          <span>⏳</span>
+          <span>Dòng Thời Gian Kỷ Niệm (Timeline)</span>
+        </button>
+
+        <button class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-transparent whitespace-nowrap flex items-center gap-2" data-tab="tab-couple">
+          <span>💑</span>
+          <span>Thông Tin Cặp Đôi & Ngày Yêu</span>
+        </button>
+
+        <button class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-transparent whitespace-nowrap flex items-center gap-2" data-tab="tab-letter">
+          <span>💌</span>
+          <span>Bức Thư Tình 20/10</span>
+        </button>
+
+        <button class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-transparent whitespace-nowrap flex items-center gap-2" data-tab="tab-photos">
+          <span>📸</span>
+          <span>Album Ảnh Kỷ Niệm</span>
+        </button>
+
+        <button class="tab-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border border-transparent whitespace-nowrap flex items-center gap-2" data-tab="tab-sync">
+          <span>🚀</span>
+          <span>Xuất Bản Lên Git / Vercel</span>
+        </button>
+      </div>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 1: QUẢN LÝ DÒNG THỜI GIAN (TIMELINE)                              -->
+      <!-- ===================================================================== -->
+      <section id="tab-timeline" class="tab-content block space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 bg-white/70 p-4 rounded-2xl border border-rose-200">
+          <div>
+            <h2 class="text-base font-bold text-gray-900 flex items-center gap-2">
+              <span>⏳</span> Các Cột Mốc Tình Yêu Của Luân & Linh
+            </h2>
+            <p class="text-xs text-gray-500">Chỉnh sửa ngày tháng, tiêu đề và cảm xúc từng dấu mốc. Bạn có thể thêm, bớt hoặc đổi thứ tự tùy thích.</p>
+          </div>
+
+          <div class="flex items-center gap-2">
+            <button id="add-milestone-btn" class="px-3.5 py-2 rounded-xl btn-rose-glow text-white text-xs font-bold flex items-center gap-1.5 shadow">
+              <span>➕</span>
+              <span>Thêm Cột Mốc Mới</span>
+            </button>
+            <button id="reset-default-milestones-btn" class="px-3 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold transition-colors">
+              <span>🔄 Khôi phục mặc định</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Milestones List Container -->
+        <div id="milestones-editor-list" class="space-y-4">
+          <!-- Rendered dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 2: THÔNG TIN CẶP ĐÔI & NGÀY YÊU (COUPLE DATA)                    -->
+      <!-- ===================================================================== -->
+      <section id="tab-couple" class="tab-content hidden space-y-6">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-rose-200 shadow-sm max-w-3xl mx-auto space-y-6">
+          <div class="border-b border-rose-100 pb-4">
+            <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <span>💑</span> Thông Tin Hai Đứa & Cột Mốc Yêu Nhau
+            </h2>
+            <p class="text-xs text-gray-500 mt-1">Các thông tin này sẽ hiển thị xuyên suốt trang chủ index.html và đồng hồ đếm ngày yêu.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1.5">Tên Chàng (Anh):</label>
+              <input type="text" id="cfg-boy-name" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none" value="Nguyễn Thành Luân">
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-gray-700 mb-1.5">Tên Nàng (Bé Iu):</label>
+              <input type="text" id="cfg-girl-name" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none" value="Trương Ngọc Linh">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1.5">
+              <span>🗓️ Ngày Bắt Đầu Yêu Nhau (Đồng hồ đếm ngày):</span>
+            </label>
+            <input type="date" id="cfg-anniversary-date" class="w-full sm:w-1/2 px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none font-mono" value="2026-05-17">
+            <p class="text-[11px] text-rose-500 mt-1 font-semibold">Cố định ngày 17/05/2026 là ngày chính thức yêu nhau</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1.5">Câu Chúc 20/10 Mở Đầu (Hero Subtitle):</label>
+            <textarea id="cfg-hero-subtitle" rows="3" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none leading-relaxed">Chúc bé iu Trương Ngọc Linh một ngày 20/10 thật hạnh phúc, rạng rỡ và luôn là cô công chúa nhỏ được anh Luân yêu thương, chiều chuộng nhất trên đời!</textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 3: BỨC THƯ TÌNH 20/10 (LOVE LETTER)                              -->
+      <!-- ===================================================================== -->
+      <section id="tab-letter" class="tab-content hidden space-y-6">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-rose-200 shadow-sm max-w-3xl mx-auto space-y-6">
+          <div class="border-b border-rose-100 pb-4">
+            <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <span>💌</span> Bức Thư Tình Gửi Bé Linh Ngày 20/10
+            </h2>
+            <p class="text-xs text-gray-500 mt-1">Bức thư này được cuộn trong phong bì sáp niêm phong trang trọng trên web.</p>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-2">Nội Dung Thư Tình:</label>
+            <textarea id="cfg-letter-content" rows="14" class="w-full p-4 rounded-2xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none font-serif leading-relaxed text-gray-800 bg-rose-50/20"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 4: ALBUM ẢNH KỶ NIỆM (PHOTOS)                                    -->
+      <!-- ===================================================================== -->
+      <section id="tab-photos" class="tab-content hidden space-y-6">
+        <div class="glass-card p-6 rounded-3xl border border-rose-200 shadow-sm space-y-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-rose-100 pb-4">
+            <div>
+              <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                <span>📸</span> Quản Lý Ảnh Kỷ Niệm
+              </h2>
+              <p class="text-xs text-gray-500 mt-0.5">Thêm ảnh hai đứa, đổi chú thích hoặc xóa bớt ảnh cũ.</p>
+            </div>
+
+            <button id="add-photo-btn" class="px-4 py-2 rounded-xl btn-rose-glow text-white text-xs font-bold flex items-center gap-1.5 shadow">
+              <span>➕ Thêm Ảnh Mới</span>
+            </button>
+          </div>
+
+          <!-- Photo Grid -->
+          <div id="photos-editor-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamically populated via JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================== -->
+      <!-- TAB 5: XUẤT BẢN & ĐỒNG BỘ TOÀN CẦU (GIT / VERCEL)                    -->
+      <!-- ===================================================================== -->
+      <section id="tab-sync" class="tab-content hidden space-y-6">
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-rose-200 shadow-sm max-w-3xl mx-auto space-y-6">
+          <div>
+            <h2 class="text-lg font-bold text-gray-900 flex items-center gap-2">
+              <span>🚀</span> Xuất Bản & Lưu Vĩnh Viễn Trên Vercel / GitHub
+            </h2>
+            <p class="text-xs text-gray-500 mt-1">Giúp website của bé Linh luôn hiển thị đúng 100% trên mọi điện thoại & máy tính.</p>
+          </div>
+
+          <!-- Method 1: LocalStorage -->
+          <div class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2">
+            <div class="flex items-center gap-2 text-emerald-800 font-bold text-sm">
+              <span>⚡ Cách 1: Lưu tức thì trên trình duyệt máy này</span>
+            </div>
+            <p class="text-xs text-emerald-700 leading-relaxed">
+              Bấm nút <strong>"Lưu & Đồng Bộ Sang Index"</strong> ở thanh trên cùng. Trang <code>index.html</code> trên máy của bạn sẽ lập tức cập nhật dữ liệu mới mà không cần chạm vào code!
+            </p>
+          </div>
+
+          <!-- Method 2: Git / Vercel Permanent -->
+          <div class="p-5 rounded-2xl bg-rose-50 border border-rose-200 space-y-3">
+            <div class="flex items-center gap-2 text-rose-800 font-bold text-sm">
+              <span>🌍 Cách 2: Lưu vĩnh viễn trên toàn thế giới (GitHub & Vercel)</span>
+            </div>
+            <p class="text-xs text-rose-700 leading-relaxed">
+              Để khi bé Linh mở điện thoại của bé lên vẫn thấy ngay mốc thời gian này mà không cần đăng nhập:
+            </p>
+            <ol class="text-xs text-gray-700 space-y-1.5 list-decimal pl-4">
+              <li>Bấm nút <strong>"Tải File love_data.json"</strong> bên dưới.</li>
+              <li>Chép đè file này vào thư mục <code>data/love_data.json</code> của dự án.</li>
+              <li>Mở Terminal chạy lệnh:
+                <pre class="mt-1 p-2.5 rounded-xl bg-gray-900 text-pink-300 font-mono text-[11px] select-all">git add data/love_data.json && git commit -m "update: Cập nhật timeline kỷ niệm" && git push origin main</pre>
+              </li>
+              <li>Vercel sẽ tự động build lại trong 10 giây và áp dụng vĩnh viễn cho tất cả mọi người!</li>
+            </ol>
+
+            <div class="pt-2 flex flex-wrap gap-2">
+              <button id="download-json-direct-btn" class="px-4 py-2 rounded-xl btn-rose-glow text-white text-xs font-bold flex items-center gap-1.5 shadow">
+                <span>📥 Tải File data/love_data.json</span>
+              </button>
+              <button id="copy-json-clipboard-btn" class="px-4 py-2 rounded-xl bg-white hover:bg-rose-50 text-rose-700 text-xs font-bold border border-rose-200 transition-colors flex items-center gap-1.5">
+                <span>📋 Sao Chép Mã JSON</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Raw JSON Viewer -->
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1.5">Xem trước dữ liệu JSON:</label>
+            <textarea id="raw-json-preview" rows="8" readonly class="w-full p-3 rounded-xl border border-gray-200 bg-gray-900 text-emerald-400 font-mono text-xs focus:outline-none"></textarea>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="admin-toast" class="fixed bottom-6 right-6 z-50 transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-2xl bg-gray-900/90 text-white text-xs font-bold shadow-2xl backdrop-blur-md flex items-center gap-2 border border-white/20">
+      <span id="admin-toast-icon">✨</span>
+      <span id="admin-toast-text">Đã lưu thay đổi thành công!</span>
+    </div>
+  </div>
+
+  <!-- JavaScript Admin Controller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      
+      const ADMIN_PASSCODES = ['1705', '17052026', 'luan', '2010'];
+      
+      // Elements
+      const loginScreen = document.getElementById('login-screen');
+      const adminDashboard = document.getElementById('admin-dashboard');
+      const loginForm = document.getElementById('login-form');
+      const adminPasscodeInput = document.getElementById('admin-passcode');
+      const loginErrorMsg = document.getElementById('login-error-msg');
+      const togglePwdBtn = document.getElementById('toggle-pwd-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+
+      // Toast utility
+      function showToast(msg, icon = '💖') {
+        const toast = document.getElementById('admin-toast');
+        const toastText = document.getElementById('admin-toast-text');
+        const toastIcon = document.getElementById('admin-toast-icon');
+        if (!toast) return;
+        toastText.textContent = msg;
+        toastIcon.textContent = icon;
+        toast.classList.remove('translate-y-32', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-32', 'opacity-0');
+        }, 3200);
+      }
+
+      // Check authentication state
+      function checkAuth() {
+        if (sessionStorage.getItem('love_admin_authenticated') === 'true') {
+          loginScreen.classList.add('hidden');
+          adminDashboard.classList.remove('hidden');
+          loadDataIntoUI();
+        } else {
+          loginScreen.classList.remove('hidden');
+          adminDashboard.classList.add('hidden');
+          adminPasscodeInput.focus();
+        }
+      }
+
+      // Toggle password visibility
+      if (togglePwdBtn) {
+        togglePwdBtn.addEventListener('click', () => {
+          const type = adminPasscodeInput.getAttribute('type') === 'password' ? 'text' : 'password';
+          adminPasscodeInput.setAttribute('type', type);
+        });
+      }
+
+      // Handle Login Form
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const entered = adminPasscodeInput.value.trim().toLowerCase();
+        if (ADMIN_PASSCODES.includes(entered)) {
+          sessionStorage.setItem('love_admin_authenticated', 'true');
+          sessionStorage.setItem('love_is_admin', 'true');
+          loginErrorMsg.classList.add('hidden');
+          loginScreen.classList.add('hidden');
+          adminDashboard.classList.remove('hidden');
+          
+          if (window.confetti) {
+            window.confetti({ particleCount: 60, spread: 70, origin: { y: 0.6 } });
+          }
+          showToast('Chào mừng Chàng Dev Luân đã đăng nhập! 👑', '🔓');
+          loadDataIntoUI();
+        } else {
+          loginErrorMsg.classList.remove('hidden');
+          adminPasscodeInput.classList.add('border-rose-500', 'animate-shake');
+          setTimeout(() => adminPasscodeInput.classList.remove('animate-shake'), 500);
+        }
+      });
+
+      // Handle Logout
+      if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+          sessionStorage.removeItem('love_admin_authenticated');
+          checkAuth();
+          showToast('Đã đăng xuất khỏi quyền quản trị! 🔒', '👋');
+        });
+      }
+
+      // Tab Navigation Switcher
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const target = btn.dataset.tab;
+          tabBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          tabContents.forEach(c => {
+            if (c.id === target) {
+              c.classList.remove('hidden');
+            } else {
+              c.classList.add('hidden');
+            }
+          });
+
+          if (target === 'tab-sync') {
+            updateRawJsonPreview();
+          }
+        });
+      });
+
+      /* =====================================================================
+         DATA MODEL & LOAD / SAVE LOGIC
+         ===================================================================== */
+      let currentMilestones = [];
+      let currentCoupleData = {};
+      let currentPhotos = [];
+
+      // Default fallback data
+      const defaultData = {
+        coupleData: {
+          boyName: 'Nguyễn Thành Luân',
+          girlName: 'Trương Ngọc Linh',
+          anniversaryDate: '2026-05-17',
+          heroSubtitle: 'Chúc bé iu Trương Ngọc Linh một ngày 20/10 thật hạnh phúc, rạng rỡ và luôn là cô công chúa nhỏ được anh Luân yêu thương, chiều chuộng nhất trên đời!',
+          letterContent: `Gửi bé iu Trương Ngọc Linh của anh,\n\nNhân ngày Phụ Nữ Việt Nam 20/10, anh - chàng Dev của em muốn gửi đến em tất cả sự yêu thương, trân trọng và biết ơn sâu sắc nhất từ tận đáy lòng.\n\nNgười ta thường bảo dân lập trình viên khô khan, suốt ngày chỉ cặm cụi bên màn hình đen và những dòng code phức tạp. Nhưng từ ngày gặp được Linh, thế giới của anh bỗng trở nên ngập tràn màu sắc và những giai điệu dịu dàng nhất. Cảm ơn em vì đã đến bên anh, cùng anh sẻ chia những niềm vui nho nhỏ, những bữa cơm ấm áp và cho anh một mái ấm bình yên sau những giờ làm việc mệt mỏi.\n\nVới anh, nụ cười rạng rỡ và đôi mắt trong veo của Linh là điều quý giá nhất trên đời. Anh chúc cô gái nhỏ của anh ngày 20/10 thật nhiều niềm vui, luôn an yên, xinh đẹp và mãi là cô công chúa được anh Luân cưng chiều hết mực.\n\nDù ngoài kia cuộc sống có bao nhiêu thử thách hay sóng gió, hãy luôn nhớ rằng anh sẽ mãi là điểm tựa vững chãi, luôn yêu thương và nắm chặt tay em trên mọi nẻo đường.\n\nThương và yêu Trương Ngọc Linh nhiều hơn mỗi ngày!\nAnh chàng Dev của em - Nguyễn Thành Luân ❤️`
+        },
+        milestones: [
+          {
+            id: 'm-1',
+            badge: '👀 Ánh Mắt Đầu Tiên',
+            date: 'Khoảnh khắc đầu tiên',
+            title: 'Lần Đầu Tiên Ta Gặp Gỡ',
+            desc: 'Giữa hàng triệu người trên thế giới, ánh mắt của Luân đã vô tình chạm vào Linh. Ngay giây phút ấy, anh biết rằng cuộc đời mình sắp có một điều kỳ diệu xuất hiện.',
+            color: 'bg-rose-100 text-rose-700'
+          },
+          {
+            id: 'm-2',
+            badge: '💖 Cột Mốc Yêu Nhau',
+            date: '17/05/2026',
+            title: 'Ngày Bé Linh Đồng Ý Bên Anh',
+            desc: 'Lời tỏ tình vụng về của chàng Dev nhưng chứa trọn sự chân thành đã được em mỉm cười gật đầu. Đó là ngày hạnh phúc nhất và là khởi đầu cho câu chuyện tình yêu ngọt ngào của hai đứa.',
+            color: 'bg-pink-100 text-pink-700'
+          },
+          {
+            id: 'm-3',
+            badge: '✈️ Nắm Tay Đi Khắp Nơi',
+            date: 'Chuyến đi đáng nhớ',
+            title: 'Chuyến Đi Chơi Đầu Tiên Cùng Nhau',
+            desc: 'Cùng Linh ngắm hoàng hôn buông, cùng nhau thưởng thức những món ăn ngon và ngắm nhìn nụ cười trong trẻo của em suốt dọc hành trình. Những cái nắm tay ấm áp xua tan mọi mỏi mệt.',
+            color: 'bg-amber-100 text-amber-700'
+          },
+          {
+            id: 'm-4',
+            badge: '☕ Bình Yên Bên Em',
+            date: 'Kỷ niệm khó quên',
+            title: 'Những Giây Phút Bình Yên Giản Dị',
+            desc: 'Không cần những điều quá lớn lao, chỉ cần những buổi chiều đón bé Linh tan ca, những ly trà sữa ngọt ngào hay cùng nhau trò chuyện cuối ngày cũng đủ làm lòng anh ấm lại.',
+            color: 'bg-emerald-100 text-emerald-700'
+          },
+          {
+            id: 'm-5',
+            badge: '🌹 20/10 Yêu Thương',
+            date: '20 Tháng 10 Hôm Nay',
+            title: '20/10 Bên Cạnh Bé Iu Trương Ngọc Linh',
+            desc: 'Một mùa 20/10 nữa lại về, tình cảm của Luân dành cho Linh vẫn vẹn nguyên và sâu đậm hơn mỗi ngày. Mong em mãi luôn cười tươi và hạnh phúc trong vòng tay anh!',
+            color: 'bg-purple-100 text-purple-700'
+          }
+        ],
+        photos: [
+          {
+            id: 'p-1',
+            url: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80',
+            caption: 'Nụ cười tỏa nắng của bé Linh làm tan chảy trái tim Luân',
+            date: 'Khoảnh khắc ngọt ngào'
+          },
+          {
+            id: 'p-2',
+            url: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80',
+            caption: 'Cùng em đi qua những tháng ngày tuổi trẻ bình yên nhất',
+            date: 'Bên nhau dịu êm'
+          },
+          {
+            id: 'p-3',
+            url: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80',
+            caption: 'Bàn tay nhỏ của Linh luôn được Luân nắm thật chặt',
+            date: 'Ấm áp mỗi ngày'
+          },
+          {
+            id: 'p-4',
+            url: 'https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80',
+            caption: 'Những bông hoa đẹp nhất dành tặng cô công chúa của anh 20/10',
+            date: '20/10 Rực rỡ'
+          }
+        ]
+      };
+
+      // Load data from LocalStorage or fetch love_data.json
+      async function loadDataIntoUI() {
+        // 1. Couple data
+        try {
+          const storedCouple = localStorage.getItem('couple_data_2010');
+          if (storedCouple) {
+            currentCoupleData = JSON.parse(storedCouple);
+          } else {
+            currentCoupleData = { ...defaultData.coupleData };
+          }
+        } catch (e) {
+          currentCoupleData = { ...defaultData.coupleData };
+        }
+
+        // 2. Milestones
+        try {
+          const storedMilestones = localStorage.getItem('love_milestones_2010');
+          if (storedMilestones) {
+            currentMilestones = JSON.parse(storedMilestones);
+          } else {
+            currentMilestones = JSON.parse(JSON.stringify(defaultData.milestones));
+          }
+        } catch (e) {
+          currentMilestones = JSON.parse(JSON.stringify(defaultData.milestones));
+        }
+
+        // 3. Photos
+        try {
+          const storedPhotos = localStorage.getItem('love_photos_2010');
+          if (storedPhotos) {
+            currentPhotos = JSON.parse(storedPhotos);
+          } else {
+            currentPhotos = JSON.parse(JSON.stringify(defaultData.photos));
+          }
+        } catch (e) {
+          currentPhotos = JSON.parse(JSON.stringify(defaultData.photos));
+        }
+
+        // Populate Form Fields
+        document.getElementById('cfg-boy-name').value = currentCoupleData.boyName || 'Nguyễn Thành Luân';
+        document.getElementById('cfg-girl-name').value = currentCoupleData.girlName || 'Trương Ngọc Linh';
+        document.getElementById('cfg-anniversary-date').value = currentCoupleData.anniversaryDate || '2026-05-17';
+        document.getElementById('cfg-hero-subtitle').value = currentCoupleData.heroSubtitle || defaultData.coupleData.heroSubtitle;
+        document.getElementById('cfg-letter-content').value = currentCoupleData.letterContent || defaultData.coupleData.letterContent;
+
+        renderMilestonesEditor();
+        renderPhotosEditor();
+        updateRawJsonPreview();
+      }
+
+      /* =====================================================================
+         RENDER MILESTONES IN ADMIN
+         ===================================================================== */
+      function renderMilestonesEditor() {
+        const container = document.getElementById('milestones-editor-list');
+        if (!container) return;
+
+        if (currentMilestones.length === 0) {
+          container.innerHTML = `
+            <div class="p-8 text-center bg-white rounded-2xl border border-rose-200">
+              <p class="text-sm text-gray-500 mb-3">Chưa có cột mốc nào trong dòng thời gian!</p>
+              <button onclick="document.getElementById('reset-default-milestones-btn').click()" class="px-4 py-2 rounded-xl btn-rose-glow text-white text-xs font-bold">Khôi phục 5 mốc mặc định</button>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = currentMilestones.map((item, idx) => `
+          <div class="glass-card p-5 rounded-2xl border border-rose-200/90 shadow-xs relative space-y-3" data-idx="${idx}">
+            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-rose-100 pb-2.5">
+              <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-full bg-rose-500 text-white text-xs font-bold flex items-center justify-center">${idx + 1}</span>
+                <span class="text-xs font-bold text-gray-800">Cột Mốc #${idx + 1}</span>
+              </div>
+
+              <!-- Reorder & Delete controls -->
+              <div class="flex items-center gap-1.5">
+                <button type="button" class="btn-move-up p-1.5 rounded-lg bg-gray-100 hover:bg-rose-100 text-gray-600 hover:text-rose-700 text-xs transition-colors ${idx === 0 ? 'opacity-30 cursor-not-allowed' : ''}" title="Chuyển lên trên" ${idx === 0 ? 'disabled' : ''}>⬆️</button>
+                <button type="button" class="btn-move-down p-1.5 rounded-lg bg-gray-100 hover:bg-rose-100 text-gray-600 hover:text-rose-700 text-xs transition-colors ${idx === currentMilestones.length - 1 ? 'opacity-30 cursor-not-allowed' : ''}" title="Chuyển xuống dưới" ${idx === currentMilestones.length - 1 ? 'disabled' : ''}>⬇️</button>
+                <button type="button" class="btn-delete-milestone p-1.5 rounded-lg bg-rose-50 hover:bg-rose-200 text-rose-600 hover:text-rose-800 text-xs transition-colors ml-2" title="Xóa mốc này">🗑️ Xóa</button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label class="block text-[11px] font-bold text-gray-600 mb-1">Huy Hiệu (Badge & Icon):</label>
+                <input type="text" class="input-badge w-full px-3 py-2 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none" value="${escapeHtml(item.badge || '')}" placeholder="VD: 💖 Cột Mốc Yêu Nhau">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-gray-600 mb-1">Thời Gian (Date / Milestone):</label>
+                <input type="text" class="input-date w-full px-3 py-2 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none" value="${escapeHtml(item.date || '')}" placeholder="VD: 17/05/2026 hoặc Khoảnh khắc đầu tiên">
+              </div>
+
+              <div>
+                <label class="block text-[11px] font-bold text-gray-600 mb-1">Tiêu Đề Cột Mốc:</label>
+                <input type="text" class="input-title w-full px-3 py-2 rounded-xl border border-rose-200 text-xs font-semibold focus:ring-2 focus:ring-rose-400 focus:outline-none" value="${escapeHtml(item.title || '')}" placeholder="VD: Ngày Bé Linh Đồng Ý Bên Anh">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-[11px] font-bold text-gray-600 mb-1">Mô Tả Cảm Xúc & Kỷ Niệm:</label>
+              <textarea rows="2" class="input-desc w-full px-3 py-2 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none leading-relaxed" placeholder="Kỷ niệm đáng nhớ...">${escapeHtml(item.desc || '')}</textarea>
+            </div>
+          </div>
+        `).join('');
+
+        // Attach event listeners for milestones
+        container.querySelectorAll('.glass-card').forEach((card) => {
+          const idx = parseInt(card.dataset.idx, 10);
+          
+          card.querySelector('.input-badge').addEventListener('input', (e) => {
+            currentMilestones[idx].badge = e.target.value;
+          });
+          card.querySelector('.input-date').addEventListener('input', (e) => {
+            currentMilestones[idx].date = e.target.value;
+          });
+          card.querySelector('.input-title').addEventListener('input', (e) => {
+            currentMilestones[idx].title = e.target.value;
+          });
+          card.querySelector('.input-desc').addEventListener('input', (e) => {
+            currentMilestones[idx].desc = e.target.value;
+          });
+
+          const upBtn = card.querySelector('.btn-move-up');
+          if (upBtn) {
+            upBtn.addEventListener('click', () => {
+              if (idx > 0) {
+                const temp = currentMilestones[idx];
+                currentMilestones[idx] = currentMilestones[idx - 1];
+                currentMilestones[idx - 1] = temp;
+                renderMilestonesEditor();
+              }
+            });
+          }
+
+          const downBtn = card.querySelector('.btn-move-down');
+          if (downBtn) {
+            downBtn.addEventListener('click', () => {
+              if (idx < currentMilestones.length - 1) {
+                const temp = currentMilestones[idx];
+                currentMilestones[idx] = currentMilestones[idx + 1];
+                currentMilestones[idx + 1] = temp;
+                renderMilestonesEditor();
+              }
+            });
+          }
+
+          const delBtn = card.querySelector('.btn-delete-milestone');
+          if (delBtn) {
+            delBtn.addEventListener('click', () => {
+              if (confirm(`Bạn có chắc chắn muốn xóa cột mốc: "${currentMilestones[idx].title || 'này'}" không?`)) {
+                currentMilestones.splice(idx, 1);
+                renderMilestonesEditor();
+                showToast('Đã xóa cột mốc!', '🗑️');
+              }
+            });
+          }
+        });
+      }
+
+      // Add Milestone Button
+      document.getElementById('add-milestone-btn').addEventListener('click', () => {
+        const newM = {
+          id: 'm-' + Date.now(),
+          badge: '✨ Cột Mốc Mới',
+          date: 'Thời gian kỷ niệm',
+          title: 'Tiêu đề cột mốc mới',
+          desc: 'Chia sẻ cảm xúc ngọt ngào của hai bạn...',
+          color: 'bg-rose-100 text-rose-700'
+        };
+        currentMilestones.push(newM);
+        renderMilestonesEditor();
+        showToast('Đã thêm 1 mốc mới, bạn hãy điền nội dung nhé! ✨', '➕');
+      });
+
+      // Reset Default Milestones
+      document.getElementById('reset-default-milestones-btn').addEventListener('click', () => {
+        if (confirm('Khôi phục lại 5 cột mốc chuẩn của Luân & Linh?')) {
+          currentMilestones = JSON.parse(JSON.stringify(defaultData.milestones));
+          renderMilestonesEditor();
+          showToast('Đã khôi phục 5 mốc mặc định!', '🔄');
+        }
+      });
+
+      /* =====================================================================
+         RENDER PHOTOS IN ADMIN
+         ===================================================================== */
+      function renderPhotosEditor() {
+        const grid = document.getElementById('photos-editor-grid');
+        if (!grid) return;
+
+        if (currentPhotos.length === 0) {
+          grid.innerHTML = `
+            <div class="col-span-full p-8 text-center bg-rose-50/50 rounded-2xl border border-rose-200">
+              <p class="text-sm text-gray-500 mb-2">Chưa có ảnh nào trong album kỷ niệm!</p>
+              <button id="reset-photos-btn" class="px-4 py-2 rounded-xl btn-rose-glow text-white text-xs font-bold">Khôi phục 4 ảnh mẫu</button>
+            </div>
+          `;
+          const rBtn = document.getElementById('reset-photos-btn');
+          if (rBtn) {
+            rBtn.addEventListener('click', () => {
+              currentPhotos = JSON.parse(JSON.stringify(defaultData.photos));
+              renderPhotosEditor();
+            });
+          }
+          return;
+        }
+
+        grid.innerHTML = currentPhotos.map((p, idx) => `
+          <div class="glass-card rounded-2xl overflow-hidden border border-rose-200/90 shadow-xs flex flex-col justify-between" data-pidx="${idx}">
+            <div class="aspect-[4/3] bg-rose-100 relative overflow-hidden group">
+              <img src="${escapeHtml(p.url)}" alt="${escapeHtml(p.caption)}" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                <button type="button" class="btn-del-photo px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold shadow hover:bg-red-700">🗑️ Xóa Ảnh</button>
+              </div>
+            </div>
+
+            <div class="p-3.5 space-y-2">
+              <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase">Chú Thích Ảnh:</label>
+                <input type="text" class="input-photo-caption w-full px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none" value="${escapeHtml(p.caption || '')}">
+              </div>
+              <div>
+                <label class="block text-[10px] font-bold text-gray-500 uppercase">Thời Gian / Địa Điểm:</label>
+                <input type="text" class="input-photo-date w-full px-2.5 py-1.5 rounded-lg border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none" value="${escapeHtml(p.date || '')}">
+              </div>
+            </div>
+          </div>
+        `).join('');
+
+        grid.querySelectorAll('[data-pidx]').forEach(card => {
+          const idx = parseInt(card.dataset.pidx, 10);
+          card.querySelector('.input-photo-caption').addEventListener('input', (e) => {
+            currentPhotos[idx].caption = e.target.value;
+          });
+          card.querySelector('.input-photo-date').addEventListener('input', (e) => {
+            currentPhotos[idx].date = e.target.value;
+          });
+          card.querySelector('.btn-del-photo').addEventListener('click', () => {
+            currentPhotos.splice(idx, 1);
+            renderPhotosEditor();
+            showToast('Đã xóa bức ảnh!', '🗑️');
+          });
+        });
+      }
+
+      // Add Photo Handler
+      document.getElementById('add-photo-btn').addEventListener('click', () => {
+        const url = prompt('Nhập đường link ảnh (URL ảnh online):');
+        if (!url || !url.trim()) return;
+        const caption = prompt('Nhập chú thích ngọt ngào cho bức ảnh:') || 'Khoảnh khắc đáng nhớ';
+        const date = prompt('Nhập thời gian hoặc địa điểm (VD: Đà Lạt 2024):') || 'Bên nhau dịu êm';
+
+        currentPhotos.push({
+          id: 'p-' + Date.now(),
+          url: url.trim(),
+          caption: caption.trim(),
+          date: date.trim()
+        });
+        renderPhotosEditor();
+        showToast('Đã thêm ảnh mới vào album! 📸', '🎉');
+      });
+
+      /* =====================================================================
+         SAVE & PUBLISH TO LOCALSTORAGE & JSON
+         ===================================================================== */
+      function collectCurrentState() {
+        const boyName = document.getElementById('cfg-boy-name').value.trim() || 'Nguyễn Thành Luân';
+        const girlName = document.getElementById('cfg-girl-name').value.trim() || 'Trương Ngọc Linh';
+        const anniversaryDate = document.getElementById('cfg-anniversary-date').value.trim() || '2026-05-17';
+        const heroSubtitle = document.getElementById('cfg-hero-subtitle').value.trim();
+        const letterContent = document.getElementById('cfg-letter-content').value;
+
+        currentCoupleData = {
+          boyName,
+          girlName,
+          anniversaryDate,
+          heroSubtitle,
+          letterContent,
+          coupleTitle: `${boyName} ❤️ ${girlName}`
+        };
+
+        return {
+          coupleData: currentCoupleData,
+          milestones: currentMilestones,
+          photos: currentPhotos
+        };
+      }
+
+      function saveAllToLocalStorage() {
+        const state = collectCurrentState();
+        try {
+          localStorage.setItem('couple_data_2010', JSON.stringify(state.coupleData));
+          localStorage.setItem('love_milestones_2010', JSON.stringify(state.milestones));
+          localStorage.setItem('love_photos_2010', JSON.stringify(state.photos));
+          updateRawJsonPreview();
+
+          if (window.confetti) {
+            window.confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+          }
+          showToast('🎉 Đã lưu & đồng bộ thành công sang index.html!', '💾');
+        } catch (e) {
+          alert('Lỗi lưu vào bộ nhớ trình duyệt: ' + e.message);
+        }
+      }
+
+      // Save Button
+      document.getElementById('save-all-btn').addEventListener('click', saveAllToLocalStorage);
+
+      // Raw JSON Preview
+      function updateRawJsonPreview() {
+        const state = collectCurrentState();
+        const preview = document.getElementById('raw-json-preview');
+        if (preview) {
+          preview.value = JSON.stringify(state, null, 2);
+        }
+      }
+
+      // Download JSON File
+      function downloadJsonFile() {
+        const state = collectCurrentState();
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        downloadAnchor.setAttribute("download", "love_data.json");
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        showToast('Đã tải file love_data.json về máy! 📥', '✨');
+      }
+
+      document.getElementById('export-json-btn').addEventListener('click', downloadJsonFile);
+      document.getElementById('download-json-direct-btn').addEventListener('click', downloadJsonFile);
+
+      // Copy JSON to clipboard
+      document.getElementById('copy-json-clipboard-btn').addEventListener('click', () => {
+        const state = collectCurrentState();
+        const str = JSON.stringify(state, null, 2);
+        navigator.clipboard.writeText(str).then(() => {
+          showToast('Đã sao chép mã JSON vào Clipboard! 📋', '✨');
+        }).catch(() => {
+          showToast('Không thể sao chép tự động, hãy bôi đen text bên dưới!', '⚠️');
+        });
+      });
+
+      // Escape HTML Helper
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;');
+      }
+
+      // Initial Auth Check
+      checkAuth();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "coupleData": {
+    "boyName": "Nguyễn Thành Luân",
+    "girlName": "Trương Ngọc Linh",
+    "anniversaryDate": "2026-05-17",
+    "heroSubtitle": "Chúc bé iu Trương Ngọc Linh một ngày 20/10 thật hạnh phúc, rạng rỡ và luôn là cô công chúa nhỏ được anh Luân yêu thương, chiều chuộng nhất trên đời!",
+    "letterContent": "Gửi bé iu Trương Ngọc Linh của anh,\n\nNhân ngày Phụ Nữ Việt Nam 20/10, anh - chàng Dev của em muốn gửi đến em tất cả sự yêu thương, trân trọng và biết ơn sâu sắc nhất từ tận đáy lòng.\n\nNgười ta thường bảo dân lập trình viên khô khan, suốt ngày chỉ cặm cụi bên màn hình đen và những dòng code phức tạp. Nhưng từ ngày gặp được Linh, thế giới của anh bỗng trở nên ngập tràn màu sắc và những giai điệu dịu dàng nhất. Cảm ơn em vì đã đến bên anh, cùng anh sẻ chia những niềm vui nho nhỏ, những bữa cơm ấm áp và cho anh một mái ấm bình yên sau những giờ làm việc mệt mỏi.\n\nVới anh, nụ cười rạng rỡ và đôi mắt trong veo của Linh là điều quý giá nhất trên đời. Anh chúc cô gái nhỏ của anh ngày 20/10 thật nhiều niềm vui, luôn an yên, xinh đẹp và mãi là cô công chúa được anh Luân cưng chiều hết mực.\n\nDù ngoài kia cuộc sống có bao nhiêu thử thách hay sóng gió, hãy luôn nhớ rằng anh sẽ mãi là điểm tựa vững chãi, luôn yêu thương và nắm chặt tay em trên mọi nẻo đường.\n\nThương và yêu Trương Ngọc Linh nhiều hơn mỗi ngày!\nAnh chàng Dev của em - Nguyễn Thành Luân ❤️"
+  },
+  "milestones": [
+    {
+      "id": "m-1",
+      "badge": "👀 Ánh Mắt Đầu Tiên",
+      "date": "Khoảnh khắc đầu tiên",
+      "title": "Lần Đầu Tiên Ta Gặp Gỡ",
+      "desc": "Giữa hàng triệu người trên thế giới, ánh mắt của Luân đã vô tình chạm vào Linh. Ngay giây phút ấy, anh biết rằng cuộc đời mình sắp có một điều kỳ diệu xuất hiện.",
+      "color": "bg-rose-100 text-rose-700"
+    },
+    {
+      "id": "m-2",
+      "badge": "💖 Cột Mốc Yêu Nhau",
+      "date": "17/05/2026",
+      "title": "Ngày Bé Linh Đồng Ý Bên Anh",
+      "desc": "Lời tỏ tình vụng về của chàng Dev nhưng chứa trọn sự chân thành đã được em mỉm cười gật đầu. Đó là ngày hạnh phúc nhất và là khởi đầu cho câu chuyện tình yêu ngọt ngào của hai đứa.",
+      "color": "bg-pink-100 text-pink-700"
+    },
+    {
+      "id": "m-3",
+      "badge": "✈️ Nắm Tay Đi Khắp Nơi",
+      "date": "Chuyến đi đáng nhớ",
+      "title": "Chuyến Đi Chơi Đầu Tiên Cùng Nhau",
+      "desc": "Cùng Linh ngắm hoàng hôn buông, cùng nhau thưởng thức những món ăn ngon và ngắm nhìn nụ cười trong trẻo của em suốt dọc hành trình. Những cái nắm tay ấm áp xua tan mọi mỏi mệt.",
+      "color": "bg-amber-100 text-amber-700"
+    },
+    {
+      "id": "m-4",
+      "badge": "☕ Bình Yên Bên Em",
+      "date": "Kỷ niệm khó quên",
+      "title": "Những Giây Phút Bình Yên Giản Dị",
+      "desc": "Không cần những điều quá lớn lao, chỉ cần những buổi chiều đón bé Linh tan ca, những ly trà sữa ngọt ngào hay cùng nhau trò chuyện cuối ngày cũng đủ làm lòng anh ấm lại.",
+      "color": "bg-emerald-100 text-emerald-700"
+    },
+    {
+      "id": "m-5",
+      "badge": "🌹 20/10 Yêu Thương",
+      "date": "20 Tháng 10 Hôm Nay",
+      "title": "20/10 Bên Cạnh Bé Iu Trương Ngọc Linh",
+      "desc": "Một mùa 20/10 nữa lại về, tình cảm của Luân dành cho Linh vẫn vẹn nguyên và sâu đậm hơn mỗi ngày. Mong em mãi luôn cười tươi và hạnh phúc trong vòng tay anh!",
+      "color": "bg-purple-100 text-purple-700"
+    }
+  ],
+  "photos": [
+    {
+      "id": "p-1",
+      "url": "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80",
+      "caption": "Nụ cười tỏa nắng của bé Linh làm tan chảy trái tim Luân",
+      "date": "Khoảnh khắc ngọt ngào"
+    },
+    {
+      "id": "p-2",
+      "url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80",
+      "caption": "Cùng em đi qua những tháng ngày tuổi trẻ bình yên nhất",
+      "date": "Bên nhau dịu êm"
+    },
+    {
+      "id": "p-3",
+      "url": "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80",
+      "caption": "Bàn tay nhỏ của Linh luôn được Luân nắm thật chặt",
+      "date": "Ấm áp mỗi ngày"
+    },
+    {
+      "id": "p-4",
+      "url": "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=800&q=80",
+      "caption": "Những bông hoa đẹp nhất dành tặng cô công chúa của anh 20/10",
+      "date": "20/10 Rực rỡ"
+    }
+  ]
+}
