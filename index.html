@@ -195,30 +195,95 @@
 
       <!-- 3D Interactive Love Gift Box -->
       <div class="mb-10 flex flex-col items-center">
-        <div id="hero-gift-box" class="gift-box-wrapper relative inline-block group" title="Bấm vào để mở món quà đặc biệt từ anh!">
-          <div class="gift-box w-28 h-28 sm:w-36 sm:h-36 relative flex items-center justify-center">
-            <svg class="w-full h-full filter drop-shadow-xl" viewBox="0 0 120 120" fill="none">
-              <rect x="22" y="48" width="76" height="60" rx="8" fill="url(#giftGrad)" stroke="#fda4af" stroke-width="2"/>
-              <rect x="16" y="36" width="88" height="18" rx="5" fill="#f43f5e" stroke="#e11d48" stroke-width="2"/>
-              <rect x="52" y="36" width="16" height="72" fill="#fbbf24"/>
-              <rect x="16" y="42" width="88" height="6" fill="#f59e0b" opacity="0.4"/>
-              <path d="M60 36 C50 18, 30 22, 42 36 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
-              <path d="M60 36 C70 18, 90 22, 78 36 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
-              <circle cx="60" cy="36" r="6" fill="#f59e0b"/>
+        <div id="hero-gift-box" class="gift-box-wrapper relative inline-block group select-none cursor-pointer" title="Bấm vào để mở món quà đặc biệt từ anh!">
+          
+          <!-- Pulsing Magical Aura Halo -->
+          <div class="gift-aura-halo"></div>
+
+          <!-- Ambient Floating Sparkles -->
+          <span class="gift-sparkle gift-sparkle-1">✨</span>
+          <span class="gift-sparkle gift-sparkle-2">💖</span>
+          <span class="gift-sparkle gift-sparkle-3">🌸</span>
+          <span class="gift-sparkle gift-sparkle-4">⭐</span>
+
+          <!-- Vertical Magic Beam of Light (Shoots up when unboxing) -->
+          <div class="gift-light-beam"></div>
+
+          <div class="gift-box w-32 h-32 sm:w-40 sm:h-40 relative flex items-center justify-center">
+            
+            <svg class="w-full h-full filter drop-shadow-2xl overflow-visible" viewBox="0 0 120 120" fill="none">
+              <!-- Glow Base circle -->
+              <circle cx="60" cy="75" r="42" fill="url(#giftBaseAura)" opacity="0.6"/>
+
+              <!-- Box Body Group (with 3D depth and gold vertical ribbon) -->
+              <g id="gift-box-body">
+                <!-- Shadow beneath lid -->
+                <rect x="24" y="49" width="72" height="57" rx="7" fill="#f43f5e" opacity="0.15"/>
+                <!-- Main Body -->
+                <rect x="22" y="48" width="76" height="60" rx="8" fill="url(#giftGrad)" stroke="#fda4af" stroke-width="2"/>
+                <!-- Vertical Gold Ribbon -->
+                <rect x="52" y="48" width="16" height="60" fill="url(#goldGrad)"/>
+                <rect x="55" y="48" width="4" height="60" fill="#fff" opacity="0.3"/>
+                <!-- Glossy Left Highlight -->
+                <rect x="26" y="52" width="12" height="52" rx="4" fill="white" opacity="0.45"/>
+              </g>
+
+              <!-- Flying Heart & Light Burst (Emerges from inside when opened) -->
+              <g id="gift-surprise" class="gift-surprise">
+                <text x="60" y="52" font-size="34" text-anchor="middle" dominant-baseline="central" class="gift-burst-heart select-none pointer-events-none">💖</text>
+              </g>
+
+              <!-- Box Lid Group (Flies off and spins away when opened) -->
+              <g id="gift-box-lid" class="transition-transform duration-700">
+                <!-- Lid Base Box -->
+                <rect x="15" y="34" width="90" height="18" rx="5" fill="#f43f5e" stroke="#e11d48" stroke-width="2"/>
+                <rect x="15" y="42" width="90" height="6" fill="#be123c" opacity="0.45"/>
+                <!-- Lid Vertical Ribbon -->
+                <rect x="52" y="34" width="16" height="18" fill="url(#goldGrad)"/>
+                <rect x="55" y="34" width="4" height="18" fill="#fff" opacity="0.35"/>
+                <!-- Big Ribbon Bow Left & Right -->
+                <path d="M60 34 C46 12, 22 16, 38 34 Z" fill="url(#goldGrad)" stroke="#d97706" stroke-width="1.8"/>
+                <path d="M60 34 C74 12, 98 16, 82 34 Z" fill="url(#goldGrad)" stroke="#d97706" stroke-width="1.8"/>
+                <path d="M60 34 C50 20, 36 22, 46 34 Z" fill="#fef08a" opacity="0.5"/>
+                <path d="M60 34 C70 20, 84 22, 74 34 Z" fill="#fef08a" opacity="0.5"/>
+                <!-- Center Ribbon Knot & Diamond Heart -->
+                <circle cx="60" cy="34" r="7.5" fill="#fbbf24" stroke="#d97706" stroke-width="2"/>
+                <circle cx="60" cy="34" r="3.5" fill="#ffffff" opacity="0.9"/>
+              </g>
+
               <defs>
                 <linearGradient id="giftGrad" x1="22" y1="48" x2="98" y2="108" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#fff1f2"/>
-                  <stop offset="1" stop-color="#ffe4e6"/>
+                  <stop offset="0%" stop-color="#fff5f5"/>
+                  <stop offset="45%" stop-color="#ffe4e8"/>
+                  <stop offset="100%" stop-color="#fecdd3"/>
                 </linearGradient>
+                <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#fde047"/>
+                  <stop offset="40%" stop-color="#fbbf24"/>
+                  <stop offset="80%" stop-color="#f59e0b"/>
+                  <stop offset="100%" stop-color="#d97706"/>
+                </linearGradient>
+                <radialGradient id="giftBaseAura" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#fda4af" stop-opacity="0.9"/>
+                  <stop offset="60%" stop-color="#f43f5e" stop-opacity="0.3"/>
+                  <stop offset="100%" stop-color="#f43f5e" stop-opacity="0"/>
+                </radialGradient>
               </defs>
             </svg>
-            <span class="absolute -top-2 -right-2 flex h-6 w-6">
+
+            <!-- Floating Unread Badge -->
+            <span class="gift-badge-pin absolute -top-1 -right-1 flex h-7 w-7">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-6 w-6 bg-rose-500 text-white text-xs font-bold items-center justify-center">💌</span>
+              <span class="relative inline-flex rounded-full h-7 w-7 bg-gradient-to-tr from-rose-600 to-pink-500 text-white text-xs font-bold items-center justify-center shadow-lg border border-white">💌</span>
             </span>
+
           </div>
-          <div class="mt-2 text-xs font-semibold text-rose-600 flex items-center justify-center gap-1 group-hover:scale-105 transition-transform">
-            <span>✨ Chạm để mở món quà bí mật từ anh Luân</span>
+
+          <!-- Pulsing Romantic CTA Text -->
+          <div class="mt-3.5 px-4 py-1.5 rounded-full bg-white/90 border border-rose-200/80 shadow-xs text-xs font-bold text-rose-600 flex items-center justify-center gap-1.5 group-hover:scale-105 group-hover:border-rose-400 group-hover:shadow-md transition-all">
+            <span class="text-sm animate-bounce">🎁</span>
+            <span class="tracking-wide">Chạm để mở món quà bí mật từ anh Luân</span>
+            <span class="text-xs">✨</span>
           </div>
         </div>
       </div>

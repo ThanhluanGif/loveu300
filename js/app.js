@@ -536,21 +536,86 @@ document.addEventListener('DOMContentLoaded', async () => {
   setInterval(updateLoveCounter, 1000);
 
   /* ==========================================================================
-     5. 3D LOVE GIFT BOX MODAL
+     5. 3D LOVE GIFT BOX MODAL & SPECTACULAR UNBOXING SEQUENCE
      ========================================================================== */
   const heroGiftBox = document.getElementById('hero-gift-box');
   const loveModal = document.getElementById('love-modal');
   const closeLoveModal = document.getElementById('close-love-modal');
   const ctaOpenGift = document.getElementById('cta-open-gift');
 
+  let isGiftOpening = false;
+
+  function fireGiftCenterBurst() {
+    if (!window.confetti) return;
+    const box = document.getElementById('hero-gift-box');
+    let ox = 0.5;
+    let oy = 0.45;
+    if (box) {
+      const rect = box.getBoundingClientRect();
+      ox = Math.min(Math.max((rect.left + rect.width / 2) / window.innerWidth, 0.1), 0.9);
+      oy = Math.min(Math.max((rect.top + rect.height / 2) / window.innerHeight, 0.1), 0.9);
+    }
+
+    // Stage 1: Explosive 360-degree gold, ruby & rose starburst from the box center
+    window.confetti({
+      particleCount: 75,
+      spread: 360,
+      startVelocity: 42,
+      origin: { x: ox, y: oy },
+      colors: ['#f43f5e', '#fb7185', '#fbbf24', '#f59e0b', '#ffffff', '#ff80ab', '#f472b6'],
+      ticks: 220,
+      gravity: 0.85,
+      scalar: 1.15
+    });
+  }
+
   function openLoveGift() {
-    if (loveModal) {
-      loveModal.classList.remove('hidden');
-      loveModal.classList.add('flex');
+    if (isGiftOpening) return;
+    isGiftOpening = true;
+
+    const heroGiftWrapper = document.getElementById('hero-gift-box');
+    if (heroGiftWrapper) {
+      heroGiftWrapper.classList.add('gift-opening');
+    }
+
+    // Sound / Audio Engine starts playing immediately
+    if (!AudioEngine.isPlaying) {
+      AudioEngine.play();
+    }
+
+    // Stage 1 (0ms): Center burst of golden hearts and stardust from inside the box
+    fireGiftCenterBurst();
+
+    // Stage 2 (300ms): Dual side cannons shooting celebratory confetti showers
+    setTimeout(() => {
       fireLoveConfetti();
-      if (!AudioEngine.isPlaying) {
-        AudioEngine.play();
+    }, 320);
+
+    // Stage 3 (750ms): Modal card pops in with smooth 3D perspective transition
+    setTimeout(() => {
+      if (loveModal) {
+        const modalCard = loveModal.querySelector('.glass-card');
+        if (modalCard) {
+          modalCard.classList.remove('modal-pop-in');
+          void modalCard.offsetWidth; // Force CSS repaint
+          modalCard.classList.add('modal-pop-in');
+        }
+        loveModal.classList.remove('hidden');
+        loveModal.classList.add('flex');
       }
+      isGiftOpening = false;
+    }, 780);
+  }
+
+  function resetGiftBoxState() {
+    if (loveModal) {
+      loveModal.classList.add('hidden');
+      loveModal.classList.remove('flex');
+    }
+    // Smoothly reset the lid and box so it can be opened again!
+    const heroGiftWrapper = document.getElementById('hero-gift-box');
+    if (heroGiftWrapper) {
+      heroGiftWrapper.classList.remove('gift-opening');
     }
   }
 
@@ -558,15 +623,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (ctaOpenGift) ctaOpenGift.addEventListener('click', openLoveGift);
 
   if (closeLoveModal && loveModal) {
-    closeLoveModal.addEventListener('click', () => {
-      loveModal.classList.add('hidden');
-      loveModal.classList.remove('flex');
-    });
+    closeLoveModal.addEventListener('click', resetGiftBoxState);
 
     loveModal.addEventListener('click', (e) => {
       if (e.target === loveModal) {
-        loveModal.classList.add('hidden');
-        loveModal.classList.remove('flex');
+        resetGiftBoxState();
       }
     });
   }
