@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Charm:wght@400;700&family=Dancing+Script:wght@500;600;700&family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  --primary-pink: #ff5e84;
+  --secondary-pink: #f43f5e;
+  --soft-pink: #fff1f4;
+  --rose-gold: #e28f83;
+  --gold-accent: #f59e0b;
+  --font-script: 'Charm', 'Dancing Script', cursive;
+  --font-handwriting: 'Dancing Script', cursive;
+  --font-letter: 'Dancing Script', 'Caveat', cursive;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-code: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: linear-gradient(180deg, #fff5f7 0%, #fff0f3 25%, #fdf2f8 55%, #fef3c7 85%, #fff1f2 100%);
+  color: #374151;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting);
+}
+
+.font-letter {
+  font-family: var(--font-letter);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-code {
+  font-family: var(--font-code);
+}
+
+/* Falling Petals & Hearts Canvas */
+#petals-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 40;
+}
+
+/* Glassmorphism */
+.glass-card {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px -10px rgba(244, 63, 94, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+.glass-card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 35px -10px rgba(244, 63, 94, 0.2), 0 8px 12px -4px rgba(0, 0, 0, 0.04);
+}
+
+.glass-nav {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 228, 230, 0.85);
+}
+
+/* Gradient Texts */
+.text-gradient-rose {
+  background: linear-gradient(135deg, #e11d48 0%, #f43f5e 50%, #fb7185 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-gold {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #fbbf24 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glowing buttons */
+.btn-rose-glow {
+  background: linear-gradient(135deg, #f43f5e, #fb7185);
+  box-shadow: 0 4px 20px -2px rgba(244, 63, 94, 0.45);
+  transition: all 0.3s ease;
+}
+.btn-rose-glow:hover {
+  box-shadow: 0 8px 25px rgba(244, 63, 94, 0.65);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* 3D Gift Box Animation */
+.gift-box-wrapper {
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.gift-box {
+  animation: gentle-float 3.5s ease-in-out infinite, gentle-wobble 4s ease-in-out infinite;
+  transition: transform 0.4s ease;
+}
+
+.gift-box:hover {
+  transform: scale(1.08) rotate(3deg);
+  animation-play-state: paused;
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-14px);
+  }
+}
+
+@keyframes gentle-wobble {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+/* Floating Music Disc */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.disc-spinning {
+  animation: spin-slow 8s linear infinite;
+}
+
+.disc-paused {
+  animation-play-state: paused;
+}
+
+/* Equalizer Bars */
+.eq-bar {
+  width: 3px;
+  background: #f43f5e;
+  border-radius: 999px;
+  animation: eq-bounce 1.2s ease-in-out infinite alternate;
+}
+.eq-bar:nth-child(1) { height: 12px; animation-delay: 0.1s; }
+.eq-bar:nth-child(2) { height: 18px; animation-delay: 0.3s; }
+.eq-bar:nth-child(3) { height: 8px; animation-delay: 0.5s; }
+.eq-bar:nth-child(4) { height: 15px; animation-delay: 0.2s; }
+
+@keyframes eq-bounce {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1); }
+}
+
+/* Heartbeat pulse */
+@keyframes heart-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.15);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.15);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+.animate-heart-pulse {
+  animation: heart-pulse 2.2s infinite ease-in-out;
+}
+
+/* Polaroid Card Effect */
+.polaroid-card {
+  background: #ffffff;
+  padding: 12px 12px 18px 12px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  transition: all 0.35s ease;
+  position: relative;
+}
+.polaroid-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 18px;
+  background: rgba(254, 205, 211, 0.7);
+  border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.polaroid-card:hover {
+  transform: translateY(-8px) scale(1.03) rotate(0deg) !important;
+  box-shadow: 0 20px 30px -10px rgba(244, 63, 94, 0.25);
+  z-index: 10;
+}
+
+/* Timeline vertical line */
+.timeline-container {
+  position: relative;
+}
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 20px;
+  bottom: 20px;
+  width: 3px;
+  background: linear-gradient(180deg, #fbcfe8, #f43f5e, #fda4af);
+  border-radius: 999px;
+}
+@media (max-width: 768px) {
+  .timeline-container::before {
+    left: 24px;
+  }
+}
+
+/* Wax Seal Envelope for Love Letter */
+.envelope-wrapper {
+  perspective: 1200px;
+}
+
+.wax-seal {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #e11d48, #9f1239);
+  box-shadow: 0 4px 15px rgba(159, 18, 57, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wax-seal:hover {
+  transform: scale(1.1) rotate(5deg);
+  box-shadow: 0 6px 20px rgba(159, 18, 57, 0.65);
+}
+
+.letter-paper {
+  background: #fffdfa;
+  background-image: radial-gradient(#ffe4e6 0.75px, transparent 0.75px);
+  background-size: 20px 20px;
+  box-shadow: 0 15px 40px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(254, 205, 211, 0.5);
+  border-radius: 16px;
+}
+
+/* Dev Love Section: Romantic Code Terminal */
+.dev-code-window {
+  background: #181926;
+  border: 1px solid rgba(254, 205, 211, 0.35);
+  box-shadow: 0 20px 45px -12px rgba(244, 63, 94, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.mac-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.mac-dot-red { background-color: #ff5f56; }
+.mac-dot-yellow { background-color: #ffbd2e; }
+.mac-dot-green { background-color: #27c93f; }
+
+.code-keyword { color: #f43f5e; font-weight: 600; }
+.code-string { color: #a7f3d0; }
+.code-comment { color: #94a3b8; font-style: italic; }
+.code-function { color: #fbbf24; }
+.code-var { color: #7dd3fc; }
+.code-bool { color: #f472b6; }
+
+/* Polaroid Delete Button */
+.polaroid-delete-btn {
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.polaroid-card:hover .polaroid-delete-btn {
+  opacity: 1;
+}
+
+
+/* Toast Message */
+#love-toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+#love-toast.toast-show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Sticky Note Wish Card */
+.sticky-note {
+  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.07);
+  transition: all 0.3s ease;
+  position: relative;
+}
+.sticky-note:hover {
+  transform: translateY(-4px) scale(1.02) !important;
+  box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.12);
+  z-index: 10;
+}
+.sticky-pin {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 4px 4px, #f43f5e, #9f1239);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+}
+
+/* Card 3D Flip */
+.flip-card {
+  perspective: 1000px;
+}
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1rem;
+}
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* Greeting Card Frame */
+.greeting-card-frame {
+  background: linear-gradient(145deg, #ffffff 0%, #fff5f7 100%);
+  border: 8px solid #ffe4e6;
+  outline: 2px solid #f43f5e;
+  outline-offset: -5px;
+  box-shadow: 0 15px 35px -5px rgba(244, 63, 94, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #fff1f4;
+}
+::-webkit-scrollbar-thumb {
+  background: #fbcfe8;
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #f472b6;
+}

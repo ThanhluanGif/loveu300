@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chúc Mừng 20/10 Bé Iu Trương Ngọc Linh | Từ Anh Dev Nguyễn Thành Luân ❤️</title>
+  
+  <!-- SEO & Social Meta -->
+  <meta name="description" content="Món quà tinh thần 20/10 ngọt ngào và nơi lưu giữ những kỷ niệm yêu thương của Nguyễn Thành Luân dành tặng bé iu Trương Ngọc Linh.">
+  <meta property="og:title" content="Chúc Mừng 20/10 Trương Ngọc Linh ❤️ Chuyện Tình Của Chàng Dev Nguyễn Thành Luân">
+  <meta property="og:description" content="Món quà đặc biệt từ anh người Dev Nguyễn Thành Luân gửi tặng bé iu Trương Ngọc Linh.">
+  <meta property="og:type" content="website">
+
+  <!-- Google Fonts Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Charm:wght@400;700&family=Dancing+Script:wght@500;600;700&family=Fira+Code:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rosepink: {
+              50: '#fff1f4',
+              100: '#ffe4e8',
+              200: '#fecdd6',
+              300: '#fda4b8',
+              400: '#fb718f',
+              500: '#f43f68',
+              600: '#e11d4d',
+              700: '#be123c',
+              800: '#9f1237',
+              900: '#881333',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="relative min-h-screen selection:bg-rose-200 selection:text-rose-900">
+
+  <!-- Canvas Falling Petals & Floating Hearts -->
+  <canvas id="petals-canvas"></canvas>
+
+  <!-- Top Navigation Bar -->
+  <nav class="fixed top-0 left-0 w-full z-50 glass-nav transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 flex items-center justify-between gap-2">
+      
+      <!-- Brand Logo / Couple Names -->
+      <a href="#hero" class="flex items-center gap-2 group flex-shrink-0" title="Trang chủ 20/10">
+        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-tr from-rose-500 to-pink-400 flex items-center justify-center text-white shadow-sm shadow-rose-200 group-hover:scale-105 transition-transform flex-shrink-0">
+          <span class="text-sm sm:text-base animate-pulse">💖</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-bold text-gray-800 tracking-tight text-xs sm:text-sm flex items-center gap-1">
+            <span class="couple-nav-title text-gradient-rose font-bold truncate max-w-[120px] sm:max-w-[180px]">Luân ❤️ Linh</span>
+          </span>
+          <span class="text-[9px] text-gray-400 uppercase tracking-widest font-semibold hidden sm:block">20/10 Yêu Thương</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu (Sleek Compact Pill) -->
+      <div class="hidden md:flex items-center gap-1 lg:gap-1.5 px-2.5 py-1 rounded-full bg-white/75 border border-rose-100 shadow-2xs backdrop-blur-xs text-xs font-semibold text-gray-600">
+        <a href="#hero" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Lời Chúc</a>
+        <a href="#counter" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Đếm Ngày</a>
+        <a href="#timeline" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Kỷ Niệm</a>
+        <a href="#gallery" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Album</a>
+        <a href="#letter" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Thư Tình</a>
+        <a href="#love-notes" class="px-2.5 py-1 rounded-full hover:bg-rose-50 hover:text-rose-600 transition-colors">Lời Yêu</a>
+      </div>
+
+      <!-- Right Actions: Music, Settings & Mobile Hamburger Toggle -->
+      <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+        
+        <!-- Music Player Mini Controller -->
+        <div class="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1 rounded-full bg-rose-50/80 border border-rose-200 shadow-2xs">
+          <div id="music-disc" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-gray-900 border-2 border-rose-400 flex items-center justify-center shadow-inner disc-paused cursor-pointer hover:scale-105 transition-transform" title="Bật/Tắt nhạc tình yêu">
+            <div class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-rose-200"></div>
+          </div>
+          
+          <div class="hidden xl:flex flex-col text-left">
+            <span id="music-track-title" class="text-[11px] font-semibold text-gray-800 truncate max-w-[85px]">Melodic Piano</span>
+            <div class="flex items-center gap-1">
+              <span id="music-track-artist" class="text-[9px] text-rose-600 font-medium truncate max-w-[65px]">Chill Romance</span>
+              <div class="flex items-end gap-0.5 h-2.5">
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+                <span class="eq-bar"></span>
+              </div>
+            </div>
+          </div>
+
+          <button id="music-toggle-btn" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-rose-500 hover:bg-rose-600 text-white flex items-center justify-center shadow-xs transition-transform active:scale-95" aria-label="Bật/tắt nhạc">
+            <svg id="music-play-icon" class="w-3 h-3 sm:w-3.5 sm:h-3.5 ml-0.5 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="music-pause-icon" class="w-3 h-3 sm:w-3.5 sm:h-3.5 fill-current hidden" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+
+          <button id="music-next-btn" class="text-gray-400 hover:text-rose-600 transition-colors hidden xl:block p-0.5" title="Bài tiếp theo">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+        </div>
+
+        <!-- Quick Settings Button (Cài đặt tên & ngày yêu) -->
+        <button id="open-settings-btn" class="p-1.5 sm:p-2 rounded-full bg-white hover:bg-rose-50 text-rose-600 border border-rose-200 shadow-2xs transition-transform active:scale-90" title="Chỉnh sửa tên & ngày kỷ niệm">
+          <svg class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        </button>
+
+        <!-- Mobile Menu Toggle Button (Hamburger) -->
+        <button id="mobile-menu-btn" class="md:hidden p-1.5 sm:p-2 rounded-full bg-white hover:bg-rose-50 text-gray-700 hover:text-rose-600 border border-rose-200 shadow-2xs transition-transform active:scale-90" aria-label="Mở menu">
+          <svg id="hamburger-icon" class="w-4 h-4 sm:w-4.5 sm:h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <svg id="close-menu-icon" class="w-4 h-4 sm:w-4.5 sm:h-4.5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- Mobile Navigation Drawer / Dropdown -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-rose-100 bg-white/95 backdrop-blur-md px-4 py-3 space-y-1 shadow-lg">
+      <a href="#hero" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>🌹</span> <span>Lời Chúc 20/10</span>
+      </a>
+      <a href="#counter" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>⏳</span> <span>Đếm Ngày Yêu Nhau</span>
+      </a>
+      <a href="#timeline" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>✨</span> <span>Dòng Kỷ Niệm</span>
+      </a>
+      <a href="#gallery" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>📸</span> <span>Album Ảnh Đôi</span>
+      </a>
+      <a href="#letter" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>💌</span> <span>Bức Thư Tình Bí Mật</span>
+      </a>
+      <a href="#love-notes" class="mobile-nav-link flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-gray-700 hover:bg-rose-50 hover:text-rose-600 transition-colors">
+        <span>💻</span> <span>Lời Yêu Của Chàng Dev</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========================================================================= -->
+  <!-- HERO SECTION: LỜI CHÚC 20/10 NGỌT NGÀO DÀNH CHO BÉ IU TRƯƠNG NGỌC LINH     -->
+  <!-- ========================================================================= -->
+  <section id="hero" class="relative pt-28 pb-20 md:pt-36 md:pb-28 overflow-hidden flex items-center justify-center min-h-[92vh]">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center relative z-10">
+      
+      <!-- Romantic Badge -->
+      <div class="mb-6 flex justify-center">
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/90 border border-rose-200 text-rose-700 font-semibold text-xs sm:text-sm shadow-sm animate-pulse-subtle">
+          <span>🌹</span> Chúc Mừng 20/10 Bé Iu Trương Ngọc Linh <span>💖</span>
+        </div>
+      </div>
+
+      <!-- Main Heading -->
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-gray-900 mb-6 leading-tight">
+        <span class="block font-serif italic text-3xl sm:text-4xl md:text-5xl text-rose-500 mb-2">Gửi Đến Người Anh Yêu Nhất,</span>
+        <span class="couple-girl-name text-gradient-rose">Trương Ngọc Linh</span>
+      </h1>
+
+      <!-- Slogans & Romantic Words -->
+      <p class="font-script text-3xl sm:text-4xl md:text-5xl text-rose-600 mb-4 tracking-wide">
+        "Cảm ơn vì em đã xuất hiện và làm thế giới của anh ngập tràn hạnh phúc"
+      </p>
+
+      <p class="couple-hero-subtitle max-w-2xl mx-auto text-base sm:text-lg text-gray-600 mb-8 leading-relaxed font-normal">
+        Chúc bé iu Trương Ngọc Linh một ngày 20/10 thật hạnh phúc, rạng rỡ và luôn là cô công chúa nhỏ được anh Luân yêu thương, chiều chuộng nhất trên đời!
+      </p>
+
+      <!-- Couple Heart Badge -->
+      <div class="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-rose-100/80 border border-rose-200 shadow-sm mb-10">
+        <span class="flex items-center gap-1.5 font-bold text-gray-800 text-sm sm:text-base">
+          <span>💻</span>
+          <span class="couple-boy-name">Nguyễn Thành Luân</span>
+        </span>
+        <span class="text-rose-500 text-lg animate-heart-pulse">❤️</span>
+        <span class="flex items-center gap-1.5 font-bold text-rose-700 text-sm sm:text-base">
+          <span class="couple-girl-name">Trương Ngọc Linh</span>
+          <span>👑</span>
+        </span>
+      </div>
+
+      <!-- 3D Interactive Love Gift Box -->
+      <div class="mb-10 flex flex-col items-center">
+        <div id="hero-gift-box" class="gift-box-wrapper relative inline-block group" title="Bấm vào để mở món quà đặc biệt từ anh!">
+          <div class="gift-box w-28 h-28 sm:w-36 sm:h-36 relative flex items-center justify-center">
+            <svg class="w-full h-full filter drop-shadow-xl" viewBox="0 0 120 120" fill="none">
+              <rect x="22" y="48" width="76" height="60" rx="8" fill="url(#giftGrad)" stroke="#fda4af" stroke-width="2"/>
+              <rect x="16" y="36" width="88" height="18" rx="5" fill="#f43f5e" stroke="#e11d48" stroke-width="2"/>
+              <rect x="52" y="36" width="16" height="72" fill="#fbbf24"/>
+              <rect x="16" y="42" width="88" height="6" fill="#f59e0b" opacity="0.4"/>
+              <path d="M60 36 C50 18, 30 22, 42 36 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+              <path d="M60 36 C70 18, 90 22, 78 36 Z" fill="#fbbf24" stroke="#d97706" stroke-width="1.5"/>
+              <circle cx="60" cy="36" r="6" fill="#f59e0b"/>
+              <defs>
+                <linearGradient id="giftGrad" x1="22" y1="48" x2="98" y2="108" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#fff1f2"/>
+                  <stop offset="1" stop-color="#ffe4e6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="absolute -top-2 -right-2 flex h-6 w-6">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-6 w-6 bg-rose-500 text-white text-xs font-bold items-center justify-center">💌</span>
+            </span>
+          </div>
+          <div class="mt-2 text-xs font-semibold text-rose-600 flex items-center justify-center gap-1 group-hover:scale-105 transition-transform">
+            <span>✨ Chạm để mở món quà bí mật từ anh Luân</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button id="cta-open-gift" class="w-full sm:w-auto px-8 py-4 rounded-full btn-rose-glow text-white font-bold text-base shadow-lg flex items-center justify-center gap-2 group">
+          <span>Khám Phá Món Quà Bí Mật</span>
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+        <a href="#counter" class="w-full sm:w-auto px-7 py-4 rounded-full bg-white/90 hover:bg-white text-gray-800 font-semibold text-base border border-rose-200 shadow-sm transition-all hover:border-rose-300 flex items-center justify-center gap-2">
+          <span>Đếm Ngày Yêu Nhau</span>
+          <span>⏳</span>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PHẦN 2: ĐẾM NGÀY YÊU NHAU (LOVE DAYS COUNTER)                             -->
+  <!-- ========================================================================= -->
+  <section id="counter" class="py-20 relative bg-rose-50/40">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 text-center">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider mb-3">
+        Hành Trình Tình Yêu Của Luân & Linh
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-2">
+        Chúng Mình Đã Bên Nhau Được
+      </h2>
+
+      <!-- Display Anniversary Date -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 border border-rose-200 text-rose-800 text-xs sm:text-sm font-semibold mb-4 shadow-sm">
+        <span>🗓️</span>
+        <span>Yêu nhau từ ngày: <strong id="anniversary-date-display" class="text-rose-600 font-bold">20/10/2023</strong></span>
+        <button id="quick-edit-date-btn" class="ml-1.5 px-2.5 py-0.5 rounded-md bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-semibold border border-rose-200 transition-colors shadow-2xs" title="Bấm để chỉnh sửa ngày bắt đầu yêu">
+          ✏️ Đổi ngày
+        </button>
+      </div>
+
+      <div class="mb-10">
+        <span id="total-days-badge" class="font-handwriting text-2xl sm:text-3xl text-rose-600 font-bold">
+          Đang tính toán...
+        </span>
+      </div>
+
+      <!-- Love Counter Boxes -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 max-w-2xl mx-auto mb-8">
+        <div class="glass-card p-5 sm:p-6 rounded-3xl shadow-sm border border-rose-200/80">
+          <div id="love-days" class="text-3xl sm:text-5xl font-black text-rose-600 mb-1">0</div>
+          <div class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">Ngày</div>
+        </div>
+
+        <div class="glass-card p-5 sm:p-6 rounded-3xl shadow-sm border border-rose-200/80">
+          <div id="love-hours" class="text-3xl sm:text-5xl font-black text-rose-600 mb-1">00</div>
+          <div class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">Giờ</div>
+        </div>
+
+        <div class="glass-card p-5 sm:p-6 rounded-3xl shadow-sm border border-rose-200/80">
+          <div id="love-mins" class="text-3xl sm:text-5xl font-black text-rose-600 mb-1">00</div>
+          <div class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">Phút</div>
+        </div>
+
+        <div class="glass-card p-5 sm:p-6 rounded-3xl shadow-sm border border-rose-200/80">
+          <div id="love-secs" class="text-3xl sm:text-5xl font-black text-rose-600 mb-1">00</div>
+          <div class="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider">Giây</div>
+        </div>
+      </div>
+
+      <p class="max-w-xl mx-auto text-sm sm:text-base text-gray-600 italic">
+        "Từng giây, từng phút trôi qua bên Linh đều là những khoảnh khắc ngọt ngào nhất mà Luân trân quý suốt cuộc đời này."
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PHẦN 3: DÒNG THỜI GIAN KỶ NIỆM (LOVE STORY TIMELINE)                       -->
+  <!-- ========================================================================= -->
+  <section id="timeline" class="py-20 relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-bold uppercase tracking-wider mb-3">
+          Từng Cột Mốc Đáng Nhớ
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
+          Dòng Thời Gian Tình Yêu
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base">
+          Những dấu mốc ngọt ngào ghi dấu từng bước đi trên con đường hạnh phúc của hai đứa mình
+        </p>
+      </div>
+
+      <!-- Timeline Items Container -->
+      <div class="timeline-container max-w-4xl mx-auto">
+        <div id="timeline-items">
+          <!-- Dynamically populated from JS -->
+        </div>
+      </div>
+
+      <!-- Add Milestone Form Accordion -->
+      <div class="mt-8 max-w-xl mx-auto glass-card p-6 rounded-3xl border border-rose-200">
+        <h4 class="font-bold text-gray-800 text-base mb-2 flex items-center gap-2">
+          <span>✨</span> Thêm Cột Mốc Kỷ Niệm Mới
+        </h4>
+        <p class="text-xs text-gray-500 mb-4">Lưu lại một kỷ niệm đáng nhớ của hai bạn vào dòng thời gian:</p>
+        
+        <form id="add-milestone-form" class="space-y-3">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <input type="text" id="milestone-title" placeholder="Tên kỷ niệm (VD: Đi xem phim...)" required class="w-full px-3.5 py-2 rounded-xl border border-rose-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+            <input type="text" id="milestone-date" placeholder="Thời gian (VD: Tháng 5/2024)" class="w-full px-3.5 py-2 rounded-xl border border-rose-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-rose-400">
+          </div>
+          <textarea id="milestone-desc" rows="2" placeholder="Cảm xúc & kỷ niệm lúc đó..." required class="w-full px-3.5 py-2 rounded-xl border border-rose-200 bg-white text-xs focus:outline-none focus:ring-2 focus:ring-rose-400"></textarea>
+          <button type="submit" class="w-full py-2.5 rounded-xl btn-rose-glow text-white font-bold text-xs shadow flex items-center justify-center gap-1.5">
+            <span>Lưu Kỷ Niệm Này</span>
+            <span>💖</span>
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PHẦN 4: ALBUM ẢNH KỶ NIỆM (OUR MEMORY GALLERY)                            -->
+  <!-- ========================================================================= -->
+  <section id="gallery" class="py-20 bg-rose-50/50 relative">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-200/80 text-rose-800 text-xs font-bold uppercase tracking-wider mb-3">
+          Góc Kỷ Niệm Của Hai Đứa
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
+          Khoảnh Khắc Của Luân & Linh
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base">
+          Mỗi bức ảnh là một nụ cười rạng rỡ, một cái ôm ấm áp và một kỷ niệm không bao giờ phai nhạt của hai đứa mình
+        </p>
+
+        <!-- Upload Photo Button -->
+        <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <button id="add-photo-modal-btn" class="px-6 py-3 rounded-full btn-rose-glow text-white font-bold text-xs sm:text-sm shadow-md flex items-center gap-2 transition-all hover:scale-105">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+            <span>Thêm Ảnh Kỷ Niệm Mới</span>
+            <span>📸</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Photo Grid -->
+      <div id="photo-gallery" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- Dynamically populated from JS (loaded from IndexedDB + localStorage) -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PHẦN 5: BỨC THƯ TÌNH BÍ MẬT 20/10 (WAX SEAL LOVE LETTER)                  -->
+  <!-- ========================================================================= -->
+  <section id="letter" class="py-20 relative">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold uppercase tracking-wider mb-3">
+        Món Quà Từ Trái Tim
+      </div>
+
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
+        Bức Thư Tình 20/10
+      </h2>
+
+      <p class="text-gray-600 text-sm sm:text-base mb-10">
+        Chiếc phong bì được niêm phong bằng con dấu sáp đỏ, chứa đựng những lời tâm sự chân thành nhất từ anh gửi riêng đến bé iu.
+      </p>
+
+      <!-- Wax Seal Envelope Container -->
+      <div id="love-letter-wrapper" class="envelope-wrapper max-w-xl mx-auto">
+        
+        <!-- Sealed Envelope Cover -->
+        <div id="envelope-cover" class="glass-card p-10 sm:p-14 rounded-3xl border-2 border-rose-200 shadow-xl flex flex-col items-center justify-center relative bg-gradient-to-br from-rose-50/90 to-pink-100/90">
+          <div class="text-xs uppercase tracking-widest text-rose-600 font-bold mb-4">
+            Thư Mật • Chỉ Dành Riêng Cho Bé Iu Trương Ngọc Linh
+          </div>
+
+          <!-- Wax Seal Stamp -->
+          <div id="wax-seal-btn" class="wax-seal my-6" title="Bấm vào con dấu sáp để mở thư">
+            <span class="text-2xl text-white select-none">💌</span>
+          </div>
+
+          <div class="text-xs font-semibold text-rose-700 animate-pulse">
+            Chạm vào con dấu sáp để mở thư nhé bé Linh! ✨
+          </div>
+
+          <div class="mt-6 text-[11px] text-gray-400">
+            Gửi: <span class="couple-girl-name font-bold text-gray-700">Trương Ngọc Linh</span> • Từ: <span class="couple-boy-name font-bold text-gray-700">Nguyễn Thành Luân</span> (Anh Dev của em)
+          </div>
+        </div>
+
+        <!-- Unfolded Letter Paper (Revealed when unsealed) -->
+        <div id="letter-paper" class="letter-paper p-8 sm:p-12 text-left relative hidden transition-all duration-700">
+          <div class="flex items-center justify-between border-b border-rose-200 pb-4 mb-6">
+            <div class="text-xs text-rose-600 font-bold uppercase tracking-wider">
+              20 Tháng 10 • Kỷ Niệm Tình Yêu Của Luân & Linh
+            </div>
+            <button id="edit-letter-btn" class="text-xs text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1" title="Chỉnh sửa nội dung thư">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+              <span>Sửa thư</span>
+            </button>
+          </div>
+
+          <div id="letter-content-display" class="font-letter text-2xl sm:text-3xl text-gray-800 leading-relaxed mb-8">
+            <!-- Dynamically populated from JS -->
+          </div>
+
+          <div class="pt-6 border-t border-rose-200 flex items-center justify-between">
+            <span class="text-xs text-gray-500 italic">Mãi mãi yêu và chở che cho em!</span>
+            <div class="text-right">
+              <div class="text-xs text-gray-400">Ký tên:</div>
+              <div class="couple-boy-name font-script text-3xl sm:text-4xl text-rose-600 font-bold">Nguyễn Thành Luân</div>
+              <div class="text-[11px] text-gray-500 italic">Chàng Dev của Linh ❤️</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- PHẦN 6: NƠI ANH NÓI NHỮNG LỜI YÊU THƯƠNG VỚI EM                            -->
+  <!-- ========================================================================= -->
+  <section id="love-notes" class="py-20 bg-gradient-to-b from-rose-50/70 via-pink-50/40 to-rose-100/40 relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-200/90 text-rose-900 text-xs font-bold uppercase tracking-wider mb-3 shadow-xs">
+          <span>💻❤️</span> Tâm Sự Của Chàng Dev Nguyễn Thành Luân
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-900 mb-3">
+          Nơi Anh Nói Những Lời Yêu Thương Với Em
+        </h2>
+        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+          Dù code của anh có hàng ngàn dòng, thế giới ngoài kia có hàng triệu người, thì ngoại lệ duy nhất và ngọt ngào nhất trong tim anh mãi mãi là em - Bé iu Trương Ngọc Linh!
+        </p>
+      </div>
+
+      <!-- Main Interactive Love Grid: Dev Code Console & Heartfelt Notes -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Left: Dev Love Code Terminal (Thuật Toán Tình Yêu) -->
+        <div class="dev-code-window p-5 sm:p-6 flex flex-col justify-between text-left font-code shadow-2xl">
+          <div>
+            <!-- Terminal Header / Mac dots -->
+            <div class="flex items-center justify-between border-b border-gray-700/60 pb-3 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="mac-dot mac-dot-red"></span>
+                <span class="mac-dot mac-dot-yellow"></span>
+                <span class="mac-dot mac-dot-green"></span>
+                <span class="ml-2 text-xs text-gray-400 font-sans font-medium">luan_loves_linh.js • Visual Studio Love</span>
+              </div>
+              <span class="text-[10px] bg-rose-900/60 text-rose-300 px-2 py-0.5 rounded font-sans font-semibold">100% Love</span>
+            </div>
+
+            <!-- Code Content -->
+            <div class="text-xs sm:text-sm leading-relaxed overflow-x-auto text-gray-200 space-y-1 mb-4 select-text">
+              <p class="code-comment">// Dự án: Trọn Đời Bên Bé Iu Trương Ngọc Linh ❤️</p>
+              <p class="code-comment">// Lập trình viên: Nguyễn Thành Luân (Anh của em)</p>
+              <p><span class="code-keyword">const</span> <span class="code-var">lover</span> = {</p>
+              <p class="pl-4"><span class="code-var">name</span>: <span class="code-string">"Trương Ngọc Linh"</span>,</p>
+              <p class="pl-4"><span class="code-var">nickname</span>: <span class="code-string">"Bé iu của anh 🥰"</span>,</p>
+              <p class="pl-4"><span class="code-var">role</span>: <span class="code-string">"Công chúa duy nhất trong tim Luân"</span>,</p>
+              <p class="pl-4"><span class="code-var">cuteLevel</span>: <span class="code-string">"Vô cực ∞"</span></p>
+              <p>};</p>
+              <p class="mt-2"><span class="code-keyword">const</span> <span class="code-var">devLuan</span> = {</p>
+              <p class="pl-4"><span class="code-var">heart</span>: <span class="code-string">"100% thuộc về Trương Ngọc Linh"</span>,</p>
+              <p class="pl-4"><span class="code-function">foreverLove</span>: <span class="code-keyword">function</span>() {</p>
+              <p class="pl-8"><span class="code-keyword">while</span> (<span class="code-bool">true</span>) {</p>
+              <p class="pl-12"><span class="code-function">careFor</span>(<span class="code-var">lover</span>);</p>
+              <p class="pl-12"><span class="code-function">cookDeliciousFood</span>(<span class="code-var">lover</span>);</p>
+              <p class="pl-12"><span class="code-function">giveWarmHugs</span>(<span class="code-var">lover</span>);</p>
+              <p class="pl-12"><span class="code-comment">// Tình yêu của anh không bao giờ crash! ❤️</span></p>
+              <p class="pl-8">}</p>
+              <p class="pl-4">}</p>
+              <p>};</p>
+              <p class="mt-2"><span class="code-var">devLuan</span>.<span class="code-function">foreverLove</span>();</p>
+            </div>
+          </div>
+
+          <!-- Terminal Output Log & Run Button -->
+          <div class="mt-4 pt-3 border-t border-gray-700/60">
+            <div id="dev-console-output" class="bg-black/50 p-3 rounded-xl border border-gray-800 text-[11px] text-emerald-400 font-mono mb-3 leading-snug">
+              <span class="text-gray-500">[Console]:</span> <span id="dev-console-msg">Thuật toán tình yêu đã sẵn sàng. Nhấn nút để chạy lệnh! 💖</span>
+            </div>
+
+            <button id="run-dev-code-btn" class="w-full py-2.5 px-4 rounded-xl btn-rose-glow text-white font-sans font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg transition-all active:scale-95">
+              <span>▶ Chạy Thuật Toán Tình Yêu Của Anh Luân</span>
+              <span>✨</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Heartfelt Love Notes & Random Quote Generator -->
+        <div class="glass-card p-6 sm:p-8 rounded-3xl border border-rose-200/90 shadow-xl flex flex-col justify-between relative bg-white/90">
+          <div>
+            <div class="flex items-center justify-between border-b border-rose-100 pb-3 mb-6">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">💌</span>
+                <span class="text-xs uppercase font-bold tracking-wider text-rose-700 font-sans">Lời Nhắn Từ Trái Tim Anh Luân</span>
+              </div>
+              <span id="love-quote-counter" class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700">1 / 12</span>
+            </div>
+
+            <!-- Big Quote Area -->
+            <div class="relative py-4 px-2 mb-6 min-h-[160px] flex flex-col justify-center text-center">
+              <span class="text-5xl text-rose-300/60 font-serif leading-none absolute -top-2 left-0 select-none">“</span>
+              <p id="current-love-quote" class="font-script text-2xl sm:text-3xl text-gray-800 leading-relaxed px-4 transition-all duration-300">
+                Thế giới có 8 tỷ người, nhưng với anh chỉ cần một nụ cười rạng rỡ của Trương Ngọc Linh là đủ làm sáng bừng cả thế giới!
+              </p>
+              <span class="text-5xl text-rose-300/60 font-serif leading-none absolute -bottom-6 right-0 select-none">”</span>
+            </div>
+
+            <div class="text-center mb-6">
+              <span class="text-xs text-gray-400 font-medium">Gửi gắm bởi:</span>
+              <div class="font-bold text-gray-800 text-sm font-sans flex items-center justify-center gap-1.5 mt-0.5">
+                <span class="text-rose-600">Nguyễn Thành Luân</span>
+                <span class="text-xs text-rose-500 font-normal">(Chàng Dev riêng của em)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buttons: Next Quote & Add Note -->
+          <div class="space-y-3">
+            <button id="next-love-quote-btn" class="w-full py-3 px-5 rounded-2xl btn-rose-glow text-white font-bold text-xs sm:text-sm shadow-md flex items-center justify-center gap-2 group transition-all">
+              <span>🎲 Bấm Để Nhận Thêm Lời Yêu Từ Anh Luân</span>
+              <span class="group-hover:rotate-12 transition-transform">💕</span>
+            </button>
+
+            <button id="toggle-add-note-btn" class="w-full py-2.5 px-4 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-xs transition-colors flex items-center justify-center gap-1.5">
+              <span>✍️ Gửi thêm lời yêu thương mới cho bé Linh</span>
+            </button>
+          </div>
+
+          <!-- Accordion Form: Add Custom Love Note -->
+          <div id="add-note-container" class="hidden mt-4 pt-4 border-t border-rose-100 transition-all">
+            <form id="add-love-note-form" class="space-y-3">
+              <textarea id="custom-love-note-text" rows="2" placeholder="Gõ lời yêu thương ngọt ngào muốn nhắn gửi đến em..." required class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none"></textarea>
+              <button type="submit" class="w-full py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-sm flex items-center justify-center gap-1.5">
+                <span>Lưu Lời Yêu Này Vào Trái Tim</span>
+                <span>💖</span>
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: HỘP QUÀ TÌNH YÊU 3D MỞ RA                                          -->
+  <!-- ========================================================================= -->
+  <div id="love-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div class="glass-card max-w-lg w-full p-8 rounded-3xl border-2 border-rose-300 shadow-2xl relative text-center bg-white/95">
+      
+      <button id="close-love-modal" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-rose-100 text-gray-500 hover:text-rose-600 flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="w-20 h-20 mx-auto mb-4 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-4xl shadow-inner animate-heart-pulse">
+        💖
+      </div>
+
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 text-rose-700 text-xs font-bold mb-3">
+        <span>✨</span> Món Quà Từ Trái Tim Của Anh <span>✨</span>
+      </div>
+
+      <h3 class="text-2xl sm:text-3xl font-serif font-bold text-gray-900 mb-3">
+        Chúc Mừng 20/10 <span class="couple-girl-name text-rose-600">Em Yêu</span>!
+      </h3>
+
+      <p class="text-gray-700 text-sm sm:text-base leading-relaxed mb-6 font-handwriting text-xl text-rose-900">
+        "Cảm ơn em vì đã là một phần tuyệt vời nhất trong cuộc đời anh. Chúc em ngày 20/10 thật nhiều nụ cười, luôn hạnh phúc và an tâm vì lúc nào anh cũng ở bên em!"
+      </p>
+
+      <div class="space-y-3">
+        <a href="#letter" onclick="document.getElementById('love-modal').classList.add('hidden')" class="block w-full py-3 px-6 rounded-xl btn-rose-glow text-white font-bold text-sm shadow">
+          Mở Đọc Thư Tình Của Anh Ngay
+        </a>
+        <a href="#gallery" onclick="document.getElementById('love-modal').classList.add('hidden')" class="block w-full py-2.5 px-6 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-semibold text-sm transition-colors">
+          Xem Album Kỷ Niệm Của Hai Đứa
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: CÀI ĐẶT NHANH TÊN & NGÀY KỶ NIỆM (SETTINGS MODAL)                  -->
+  <!-- ========================================================================= -->
+  <div id="settings-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+    <div class="glass-card max-w-lg w-full p-6 sm:p-8 rounded-3xl border-2 border-rose-300 shadow-2xl relative bg-white/95 max-h-[90vh] overflow-y-auto">
+      
+      <button id="close-settings-modal" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-rose-100 text-gray-500 hover:text-rose-600 flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xl shadow-inner">
+          ⚙️
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">Cài Đặt Chuyện Tình Chúng Mình</h3>
+          <p class="text-xs text-gray-500">Tùy biến tên, ngày yêu và thư tình nhanh chóng</p>
+        </div>
+      </div>
+
+      <form id="settings-form" class="space-y-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Tên của bạn (Bạn trai)</label>
+            <input type="text" id="setting-boy-name" placeholder="VD: Nam, Hoàng..." required class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 mb-1">Tên người yêu (Bạn gái)</label>
+            <input type="text" id="setting-girl-name" placeholder="VD: Mai, Vy, Em Yêu..." required class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Ngày bắt đầu yêu nhau (Anniversary Date)</label>
+          <input type="date" id="setting-anniversary-date" required class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+          <p class="text-[11px] text-gray-400 mt-1">Hệ thống sẽ tự động đếm số ngày, giờ, phút yêu nhau chính xác từ ngày này.</p>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Lời chúc mở đầu (Subtitle)</label>
+          <input type="text" id="setting-hero-subtitle" placeholder="Chúc em 20/10 ngập tràn niềm vui..." class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Nội dung bức thư tình 20/10</label>
+          <textarea id="setting-letter-content" rows="6" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none leading-relaxed"></textarea>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl btn-rose-glow text-white font-bold text-sm shadow flex items-center justify-center gap-2">
+          <span>Lưu Thay Đổi & Cập Nhật Web</span>
+          <span>💾</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: LIGHTBOX XEM ẢNH FULLSIZE                                          -->
+  <!-- ========================================================================= -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+    <div class="relative max-w-3xl w-full flex flex-col items-center">
+      <button id="close-lightbox" class="absolute -top-12 right-0 text-white hover:text-rose-400 text-2xl font-bold p-2">
+        ✕
+      </button>
+      <img id="lightbox-img" src="" alt="Kỷ niệm" class="max-h-[80vh] w-auto rounded-2xl shadow-2xl object-contain mb-3">
+      <p id="lightbox-caption" class="text-white text-center font-handwriting text-2xl px-4"></p>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: THÊM ẢNH KỶ NIỆM (ADD & PERSIST PHOTO MODAL)                      -->
+  <!-- ========================================================================= -->
+  <div id="add-photo-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fade-in">
+    <div class="glass-card max-w-lg w-full p-6 sm:p-8 rounded-3xl border-2 border-rose-300 shadow-2xl relative bg-white/95 max-h-[92vh] overflow-y-auto">
+      
+      <button id="close-photo-modal" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-gray-100 hover:bg-rose-100 text-gray-500 hover:text-rose-600 flex items-center justify-center transition-colors">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+
+      <div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center text-xl shadow-inner">
+          📸
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-gray-900">Thêm Ảnh Kỷ Niệm Mới</h3>
+          <p class="text-xs text-gray-500">Ảnh được tự động tối ưu và lưu giữ an toàn vĩnh viễn</p>
+        </div>
+      </div>
+
+      <form id="add-photo-form" class="space-y-4">
+        
+        <!-- File Picker or URL Input -->
+        <div class="space-y-2">
+          <label class="block text-xs font-bold text-gray-700">Chọn ảnh từ thiết bị:</label>
+          <input type="file" id="modal-photo-file" accept="image/*" class="w-full text-xs text-gray-500 file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-rose-50 file:text-rose-700 hover:file:bg-rose-100 border border-rose-200 rounded-xl p-1 bg-white">
+          
+          <div class="flex items-center gap-2 my-2">
+            <div class="flex-grow h-px bg-rose-100"></div>
+            <span class="text-[11px] text-gray-400 font-semibold uppercase">Hoặc dán link ảnh</span>
+            <div class="flex-grow h-px bg-rose-100"></div>
+          </div>
+
+          <input type="url" id="modal-photo-url" placeholder="https://example.com/anh-dep.jpg" class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-xs focus:ring-2 focus:ring-rose-400 focus:outline-none">
+        </div>
+
+        <!-- Image Live Preview -->
+        <div id="modal-photo-preview-box" class="hidden aspect-[4/3] rounded-2xl overflow-hidden bg-rose-50 border border-rose-200 relative">
+          <img id="modal-photo-preview-img" src="" alt="Xem trước ảnh" class="w-full h-full object-cover">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Chú thích ngọt ngào cho bức ảnh</label>
+          <input type="text" id="modal-photo-caption" placeholder="VD: Nụ cười của bé Linh làm anh say đắm..." required class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-gray-700 mb-1">Thời gian / Địa điểm kỷ niệm</label>
+          <input type="text" id="modal-photo-date" placeholder="VD: Đà Lạt mộng mơ, 20/10/2024..." class="w-full px-3.5 py-2.5 rounded-xl border border-rose-200 text-sm focus:ring-2 focus:ring-rose-400 focus:outline-none">
+        </div>
+
+        <button type="submit" id="modal-save-photo-btn" class="w-full py-3 rounded-xl btn-rose-glow text-white font-bold text-sm shadow flex items-center justify-center gap-2">
+          <span>Lưu Ảnh Vào Album Kỷ Niệm</span>
+          <span>💖</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="love-toast">
+    <div class="glass-card px-5 py-3 rounded-2xl border-2 border-rose-300 shadow-2xl flex items-center gap-3 bg-white/95 text-rose-900 font-semibold text-sm">
+      <span id="toast-icon" class="text-xl animate-bounce">💖</span>
+      <span id="toast-message">Đã lưu thành công!</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-white/80 border-t border-rose-100 relative z-10 text-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <span class="text-xl">🌸</span>
+        <span class="font-serif font-bold text-gray-900 text-lg">
+          <span class="couple-title">Nguyễn Thành Luân ❤️ Trương Ngọc Linh</span>
+        </span>
+        <span class="text-xl">🌸</span>
+      </div>
+      <p class="text-sm text-gray-500 mb-4 font-script text-2xl text-rose-600">
+        "Nguyện cùng em đi qua tất cả những mùa thu dịu dàng nhất của cuộc đời"
+      </p>
+      <div class="text-xs text-gray-400">
+        Món quà tinh thần 20/10 từ chàng Dev Nguyễn Thành Luân • Dành riêng cho bé iu Trương Ngọc Linh
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/petals.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
