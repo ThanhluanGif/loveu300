@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   function fireGiftCenterBurst() {
     if (!window.confetti) return;
-    const box = document.getElementById('hero-gift-box');
+    const box = document.querySelector('#hero-gift-box .gift-box') || document.getElementById('hero-gift-box');
     let ox = 0.5;
     let oy = 0.45;
     if (box) {
